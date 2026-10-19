@@ -1,0 +1,234 @@
+[
+  {
+    "timestamp": "2026-10-19T11:48:49.730006",
+    "action_type": "lock_account",
+    "target": "test_user_normal",
+    "status": "SUCCESS",
+    "details": "계정 비활성화 완료. 사유: 테스트 사유",
+    "operator": "SOAR_AUTO"
+  },
+  {
+    "timestamp": "2026-10-19T11:48:49.730639",
+    "action_type": "lock_account",
+    "target": "ceo_kim",
+    "status": "BYPASS_APPROVAL_REQUIRED",
+    "details": "VIP 계정(Chief Executive Officer) 자동 잠금 거부됨: 경영 업무 마비 방지 및 고위 임원 사전 유선 승인 필수. 사전 승인 필요",
+    "operator": "SOAR_AUTO"
+  },
+  {
+    "timestamp": "2026-10-19T11:48:49.736165",
+    "action_type": "lock_account",
+    "target": "ceo_kim",
+    "status": "SUCCESS",
+    "details": "계정 비활성화 완료. 사유: VIP 승인 완료 잠금 [승인 게이트 통과]",
+    "operator": "SOAR_AUTO"
+  },
+  {
+    "timestamp": "2026-10-19T11:48:49.742469",
+    "action_type": "unlock_account",
+    "target": "test_user_normal",
+    "status": "SUCCESS",
+    "details": "계정 정상 복구 완료. 해제 사유: 정상 확인 후 해제",
+    "operator": "SOAR_ADMIN"
+  },
+  {
+    "timestamp": "2026-10-19T11:48:49.748813",
+    "action_type": "terminate_session",
+    "target": "session_user (Session: s1)",
+    "status": "SUCCESS",
+    "details": "세션 토큰 폐기 및 Redis 캐시 세션 무효화 완료. 사유: 테스트",
+    "operator": "SOAR_AUTO"
+  },
+  {
+    "timestamp": "2026-10-19T11:48:49.755096",
+    "action_type": "block_ip",
+    "target": "1.1.1.1",
+    "status": "APPROVAL_PENDING",
+    "details": "위험등급[HIGH] - 관리자 승인 대기 등록됨. (VIP 여부: False)",
+    "operator": "SOAR_AUTO"
+  },
+  {
+    "timestamp": "2026-10-19T11:48:49.761451",
+    "action_type": "block_ip",
+    "target": "1.1.1.1",
+    "status": "SUCCESS",
+    "details": "방화벽 인바운드 차단 규칙 적용 완료 (Drop all). 사유: 스캔 차단",
+    "operator": "APPROVED_BY(MANAGER_PARK)"
+  },
+  {
+    "timestamp": "2026-10-19T11:48:49.767927",
+    "action_type": "unlock_account",
+    "target": "acc_fp",
+    "status": "SUCCESS",
+    "details": "계정 정상 복구 완료. 해제 사유: [오탐 복구] 정기 모의해킹",
+    "operator": "SEC_ANALYST_CHOI"
+  },
+  {
+    "timestamp": "2026-10-19T11:48:49.774681",
+    "action_type": "unblock_ip",
+    "target": "9.9.9.9",
+    "status": "SUCCESS",
+    "details": "방화벽 차단 규칙 롤백 완료. 해제 사유: [오탐 복구] 정기 모의해킹",
+    "operator": "SEC_ANALYST_CHOI"
+  },
+  {
+    "timestamp": "2026-10-19T11:48:57.351298",
+    "action_type": "lock_account",
+    "target": "user_john",
+    "status": "SUCCESS",
+    "details": "계정 비활성화 완료. 사유: 비정상 로그인 다수 탐지에 따른 임시 계정 잠금",
+    "operator": "SOAR_CONTAINMENT_ENGINE"
+  },
+  {
+    "timestamp": "2026-10-19T11:48:57.352089",
+    "action_type": "lock_account",
+    "target": "ceo_kim",
+    "status": "BYPASS_APPROVAL_REQUIRED",
+    "details": "VIP 계정(Chief Executive Officer) 자동 잠금 거부됨: 경영 업무 마비 방지 및 고위 임원 사전 유선 승인 필수. 사전 승인 필요",
+    "operator": "SOAR_CONTAINMENT_ENGINE"
+  },
+  {
+    "timestamp": "2026-10-19T11:48:57.358925",
+    "action_type": "lock_account",
+    "target": "ceo_kim",
+    "status": "SUCCESS",
+    "details": "계정 비활성화 완료. 사유: CISO 구두 긴급 승인 득함 (내부 전산 침해 의심) [승인 게이트 통과]",
+    "operator": "APPROVED_BY(CISO_PARK)"
+  },
+  {
+    "timestamp": "2026-10-19T11:48:57.364708",
+    "action_type": "block_ip",
+    "target": "198.51.100.45",
+    "status": "SUCCESS",
+    "details": "방화벽 인바운드 차단 규칙 적용 완료 (Drop all). 사유: 해외 미인가 IP 공격 원천 즉각 차단",
+    "operator": "SOAR_CONTAINMENT_ENGINE"
+  },
+  {
+    "timestamp": "2026-10-19T11:48:57.371075",
+    "action_type": "terminate_session",
+    "target": "user_john (Session: sess_9988_token)",
+    "status": "SUCCESS",
+    "details": "세션 토큰 폐기 및 Redis 캐시 세션 무효화 완료. 사유: 침해 위험 계정 활성 토큰 무효화",
+    "operator": "SOAR_CONTAINMENT_ENGINE"
+  },
+  {
+    "timestamp": "2026-10-19T11:48:57.377109",
+    "action_type": "terminate_session",
+    "target": "user_temp (Session: sess_low_01)",
+    "status": "SUCCESS",
+    "details": "세션 토큰 폐기 및 Redis 캐시 세션 무효화 완료. 사유: 테스트 저위험 세션 종료",
+    "operator": "SOAR_AUTO"
+  },
+  {
+    "timestamp": "2026-10-19T11:48:57.383694",
+    "action_type": "block_ip",
+    "target": "203.0.113.88",
+    "status": "APPROVAL_PENDING",
+    "details": "위험등급[HIGH] - 관리자 승인 대기 등록됨. (VIP 여부: False)",
+    "operator": "SOAR_AUTO"
+  },
+  {
+    "timestamp": "2026-10-19T11:48:57.389990",
+    "action_type": "block_ip",
+    "target": "203.0.113.88",
+    "status": "SUCCESS",
+    "details": "방화벽 인바운드 차단 규칙 적용 완료 (Drop all). 사유: 스캔 공격 IP 차단 승인됨",
+    "operator": "APPROVED_BY(SECOPS_LEAD_KIM)"
+  },
+  {
+    "timestamp": "2026-10-19T11:48:57.395257",
+    "action_type": "unlock_account",
+    "target": "marketing_staff",
+    "status": "SUCCESS",
+    "details": "계정 정상 복구 완료. 해제 사유: [오탐 복구] 임직원 해외 출장 중 공항 와이파이 VPN 접속에 따른 오경보 확인",
+    "operator": "SECOPS_ANALYST_KANG"
+  },
+  {
+    "timestamp": "2026-10-19T11:48:57.401793",
+    "action_type": "unblock_ip",
+    "target": "115.68.22.10",
+    "status": "SUCCESS",
+    "details": "방화벽 차단 규칙 롤백 완료. 해제 사유: [오탐 복구] 임직원 해외 출장 중 공항 와이파이 VPN 접속에 따른 오경보 확인",
+    "operator": "SECOPS_ANALYST_KANG"
+  },
+  {
+    "timestamp": "2026-10-19T11:49:16.795674",
+    "action_type": "lock_account",
+    "target": "user_john",
+    "status": "SUCCESS",
+    "details": "계정 비활성화 완료. 사유: 비정상 로그인 다수 탐지에 따른 임시 계정 잠금",
+    "operator": "SOAR_CONTAINMENT_ENGINE"
+  },
+  {
+    "timestamp": "2026-10-19T11:49:16.796582",
+    "action_type": "lock_account",
+    "target": "ceo_kim",
+    "status": "BYPASS_APPROVAL_REQUIRED",
+    "details": "VIP 계정(Chief Executive Officer) 자동 잠금 거부됨: 경영 업무 마비 방지 및 고위 임원 사전 유선 승인 필수. 사전 승인 필요",
+    "operator": "SOAR_CONTAINMENT_ENGINE"
+  },
+  {
+    "timestamp": "2026-10-19T11:49:16.804563",
+    "action_type": "lock_account",
+    "target": "ceo_kim",
+    "status": "SUCCESS",
+    "details": "계정 비활성화 완료. 사유: CISO 구두 긴급 승인 득함 (내부 전산 침해 의심) [승인 게이트 통과]",
+    "operator": "APPROVED_BY(CISO_PARK)"
+  },
+  {
+    "timestamp": "2026-10-19T11:49:16.811365",
+    "action_type": "block_ip",
+    "target": "198.51.100.45",
+    "status": "SUCCESS",
+    "details": "방화벽 인바운드 차단 규칙 적용 완료 (Drop all). 사유: 해외 미인가 IP 공격 원천 즉각 차단",
+    "operator": "SOAR_CONTAINMENT_ENGINE"
+  },
+  {
+    "timestamp": "2026-10-19T11:49:16.817452",
+    "action_type": "terminate_session",
+    "target": "user_john (Session: sess_9988_token)",
+    "status": "SUCCESS",
+    "details": "세션 토큰 폐기 및 Redis 캐시 세션 무효화 완료. 사유: 침해 위험 계정 활성 토큰 무효화",
+    "operator": "SOAR_CONTAINMENT_ENGINE"
+  },
+  {
+    "timestamp": "2026-10-19T11:49:16.824986",
+    "action_type": "terminate_session",
+    "target": "user_temp (Session: sess_low_01)",
+    "status": "SUCCESS",
+    "details": "세션 토큰 폐기 및 Redis 캐시 세션 무효화 완료. 사유: 테스트 저위험 세션 종료",
+    "operator": "SOAR_AUTO"
+  },
+  {
+    "timestamp": "2026-10-19T11:49:16.833059",
+    "action_type": "block_ip",
+    "target": "203.0.113.88",
+    "status": "APPROVAL_PENDING",
+    "details": "위험등급[HIGH] - 관리자 승인 대기 등록됨. (VIP 여부: False)",
+    "operator": "SOAR_AUTO"
+  },
+  {
+    "timestamp": "2026-10-19T11:49:16.841182",
+    "action_type": "block_ip",
+    "target": "203.0.113.88",
+    "status": "SUCCESS",
+    "details": "방화벽 인바운드 차단 규칙 적용 완료 (Drop all). 사유: 스캔 공격 IP 차단 승인됨",
+    "operator": "APPROVED_BY(SECOPS_LEAD_KIM)"
+  },
+  {
+    "timestamp": "2026-10-19T11:49:16.847106",
+    "action_type": "unlock_account",
+    "target": "marketing_staff",
+    "status": "SUCCESS",
+    "details": "계정 정상 복구 완료. 해제 사유: [오탐 복구] 임직원 해외 출장 중 공항 와이파이 VPN 접속에 따른 오경보 확인",
+    "operator": "SECOPS_ANALYST_KANG"
+  },
+  {
+    "timestamp": "2026-10-19T11:49:16.853468",
+    "action_type": "unblock_ip",
+    "target": "115.68.22.10",
+    "status": "SUCCESS",
+    "details": "방화벽 차단 규칙 롤백 완료. 해제 사유: [오탐 복구] 임직원 해외 출장 중 공항 와이파이 VPN 접속에 따른 오경보 확인",
+    "operator": "SECOPS_ANALYST_KANG"
+  }
+]

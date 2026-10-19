@@ -1,0 +1,30 @@
+{
+  "escalation_policy": {
+    "tiers": [
+      {
+        "tier": 1,
+        "role": "Tier-1 SOC Security Analyst",
+        "primary_contact": "analyst_on_duty@company.internal",
+        "slack_channel": "#soc-incident-alerts",
+        "sla_timeout_minutes": 15,
+        "auto_escalate_on_no_response": true
+      },
+      {
+        "tier": 2,
+        "role": "SecOps Team Lead",
+        "primary_contact": "secops_lead@company.internal",
+        "slack_channel": "#soc-lead-escalation",
+        "sla_timeout_minutes": 30,
+        "auto_escalate_on_no_response": true
+      },
+      {
+        "tier": 3,
+        "role": "CISO / Emergency Response Committee",
+        "primary_contact": "ciso_escalation@company.internal",
+        "slack_channel": "#exec-security-warroom",
+        "sla_timeout_minutes": 60,
+        "auto_escalate_on_no_response": false
+      }
+    ]
+  }
+}

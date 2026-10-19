@@ -1,0 +1,39 @@
+{
+  "actions": {
+    "terminate_session": {
+      "risk_level": "low",
+      "requires_approval": false,
+      "description": "사용자의 활성 세션 토큰 강제 만료",
+      "impact": "사용자 재로그인 필요 (비즈니스 영향 경미)",
+      "auto_executable": true
+    },
+    "block_ip": {
+      "risk_level": "high",
+      "requires_approval": true,
+      "description": "방화벽 및 WAF 차단 정책에 공격 IP 추가",
+      "impact": "정상 사용자 또는 프록시/NAT 대역 차단 시 다수 사용자 접근 차단 위험",
+      "auto_executable": false
+    },
+    "lock_account": {
+      "risk_level": "critical",
+      "requires_approval": true,
+      "description": "사내 IdP(Active Directory / Okta) 계정 비활성화",
+      "impact": "VIP 또는 핵심 관리자 잠금 시 업무 중단 리스크 발생",
+      "auto_executable": false
+    },
+    "unlock_account": {
+      "risk_level": "low",
+      "requires_approval": false,
+      "description": "잠금된 계정 복구 및 활성화",
+      "impact": "반드시 오탐 사유 또는 대응 완료 확인 필요",
+      "auto_executable": true
+    },
+    "unblock_ip": {
+      "risk_level": "low",
+      "requires_approval": false,
+      "description": "방화벽 차단 IP 정책 롤백",
+      "impact": "해제 사유 기록 필수",
+      "auto_executable": true
+    }
+  }
+}

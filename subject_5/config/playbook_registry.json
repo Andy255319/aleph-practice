@@ -1,0 +1,25 @@
+{
+  "playbooks": [
+    {
+      "id": "PB-001",
+      "event_type": "abnormal_login",
+      "name": "비정상 로그인 대응 플레이북",
+      "playbook_file": "playbooks/playbook_abnormal_login.md",
+      "priority": "HIGH"
+    },
+    {
+      "id": "PB-002",
+      "event_type": "traffic_spike",
+      "name": "트래픽 급증 및 DDoS 의심 대응 플레이북",
+      "playbook_file": "playbooks/playbook_traffic_spike.md",
+      "priority": "CRITICAL"
+    },
+    {
+      "id": "PB-003",
+      "event_type": "correlation_attack",
+      "name": "SIEM 상관분석 복합 침해 대응 플레이북",
+      "playbook_file": "playbooks/playbook_correlation_attack.md",
+      "priority": "CRITICAL"
+    }
+  ]
+}
