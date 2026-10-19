@@ -43,5 +43,31 @@
       }
     },
     "ml_feedback": "해당 패턴은 정상 행위로 피드백 가중치 조정 필요 (Retrain Target)"
+  },
+  {
+    "event_id": "INC-20261019-FP",
+    "timestamp": "2026-10-19T12:18:38.369605",
+    "ground_truth_label": "FALSE_POSITIVE",
+    "verified_by": "SEC_ANALYST_CHOI",
+    "reason": "VIP 임원 모바일 테더링 정상 접속 확인",
+    "features": {
+      "source_ip": "203.0.113.25",
+      "target_account": "kim",
+      "raw_event_summary": {}
+    },
+    "ml_feedback": "해당 패턴은 정상 행위로 피드백 가중치 조정 필요 (Retrain Target)"
+  },
+  {
+    "event_id": "INC-20261019-FP",
+    "timestamp": "2026-10-19T12:23:38.233706",
+    "ground_truth_label": "FALSE_POSITIVE",
+    "verified_by": "SEC_ANALYST_CHOI",
+    "reason": "VIP 임원 모바일 테더링 정상 접속 확인",
+    "features": {
+      "source_ip": "203.0.113.25",
+      "target_account": "kim",
+      "raw_event_summary": {}
+    },
+    "ml_feedback": "해당 패턴은 정상 행위로 피드백 가중치 조정 필요 (Retrain Target)"
   }
 ]

@@ -3,7 +3,7 @@ import os
 from datetime import datetime
 from typing import Dict, Any, Optional, List
 from soar.containment import get_all_containment_logs
-from soar.ticketing import MockTicketingSystem
+from soar.ticketing import get_ticket, MockTicketStore
 
 def _get_base_dir() -> str:
     return os.path.dirname(os.path.abspath(__file__))
@@ -12,31 +12,22 @@ def collect_incident_data(
     incident_data: Dict[str, Any],
     ticket_id: Optional[str] = None
 ) -> Dict[str, Any]:
-    """
-    1~3일차 데이터를 모두 취합하는 함수:
-    - 1일차: 인시던트 메타데이터, 플레이북 매칭 정보, 상태 전이 히스토리
-    - 2일차: 격리 및 차단 조치 로그(containment_log.json)에서 해당 타깃 관련 로그 필터링
-    - 3일차: 티켓 상세 정보, 담당자 체인, 에스컬레이션 내역, SLA 준수 여부
-    """
     target_account = incident_data.get("target_account")
     source_ip = incident_data.get("source_ip")
 
-    # 2일차 격리 로그 수집
     all_logs = get_all_containment_logs()
     related_actions = []
     for log in all_logs:
-        target = log.get("target", "")
+        target = str(log.get("target", ""))
         if (target_account and target_account in target) or (source_ip and source_ip in target):
             related_actions.append(log)
 
-    # 3일차 티켓 정보 수집
     ticket_info = {}
     if ticket_id:
-        ticket_info = MockTicketingSystem.get_ticket(ticket_id) or {}
+        ticket_info = get_ticket(ticket_id) or {}
     else:
-        # 티켓 ID가 없으면 incident_id로 매칭 검색
-        for t in MockTicketingSystem.get_all_tickets():
-            if t.get("incident_id") == incident_data.get("incident_id"):
+        for t in MockTicketStore._tickets.values():
+            if t.get("event_id") == incident_data.get("incident_id") or t.get("incident_id") == incident_data.get("incident_id"):
                 ticket_info = t
                 break
 
@@ -48,8 +39,7 @@ def collect_incident_data(
         "summary_metrics": {
             "total_containment_actions": len(related_actions),
             "ticket_status": ticket_info.get("status", "N/A"),
-            "current_assignee": ticket_info.get("assignee", "N/A"),
-            "worklog_count": len(ticket_info.get("worklogs", []))
+            "current_assignee": ticket_info.get("assignee", "N/A")
         }
     }
     return aggregated
@@ -63,10 +53,14 @@ def generate_technical_report(data: Dict[str, Any]) -> str:
 
     action_rows = []
     for a in actions:
+        act_type = a.get("action") or a.get("action_type")
+        act_res = a.get("result") or a.get("status")
+        act_reason = a.get("reason") or a.get("details")
         action_rows.append(
-            f"| {a.get('timestamp')} | `{a.get('action_type')}` | `{a.get('target')}` | {a.get('status')} | {a.get('operator')} | {a.get('details')} |"
+            f"| {a.get('timestamp')} | `{act_type}` | `{a.get('target')}` | {act_res} | {act_reason} |"
         )
-    action_table = "\n".join(action_rows) if action_rows else "| - | 조치 내역 없음 | - | - | - | - |"
+    action_table = "\n".join(action_rows) if action_rows else "| - | 조치 내역 없음 | - | - | - |"
+
 
     history_rows = []
     for h in inc.get("history", []):

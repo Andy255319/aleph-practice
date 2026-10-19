@@ -1,25 +1,19 @@
 {
   "playbooks": [
     {
-      "id": "PB-001",
-      "event_type": "abnormal_login",
-      "name": "비정상 로그인 대응 플레이북",
-      "playbook_file": "playbooks/playbook_abnormal_login.md",
-      "priority": "HIGH"
+      "id": "PB-LOGIN-001",
+      "event_type": "ABNORMAL_LOGIN",
+      "response_level": "승인 후 조치"
     },
     {
-      "id": "PB-002",
-      "event_type": "traffic_spike",
-      "name": "트래픽 급증 및 DDoS 의심 대응 플레이북",
-      "playbook_file": "playbooks/playbook_traffic_spike.md",
-      "priority": "CRITICAL"
+      "id": "PB-TRAFFIC-001",
+      "event_type": "TRAFFIC_SPIKE",
+      "response_level": "즉시 자동조치"
     },
     {
-      "id": "PB-003",
-      "event_type": "correlation_attack",
-      "name": "SIEM 상관분석 복합 침해 대응 플레이북",
-      "playbook_file": "playbooks/playbook_correlation_attack.md",
-      "priority": "CRITICAL"
+      "id": "PB-CORRELATION-001",
+      "event_type": "CORRELATED_ATTACK",
+      "response_level": "승인 후 조치"
     }
   ]
 }

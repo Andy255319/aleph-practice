@@ -9,10 +9,10 @@ from soar.containment import (
     unblock_ip,
     terminate_session,
     is_vip_account,
-    get_vip_info,
-    VIPAccountException,
+    VIPApprovalRequired,
     log_action
 )
+
 
 def _get_base_dir() -> str:
     return os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -101,36 +101,29 @@ class ApprovalGate:
 
             if action_type == "lock_account":
                 res = lock_account(
-                    account_id=target,
+                    username=target,
                     reason=reason,
-                    operator=exec_operator,
                     is_approved=is_approved
                 )
             elif action_type == "block_ip":
                 res = block_ip(
                     ip_address=target,
-                    reason=reason,
-                    operator=exec_operator
+                    reason=reason
                 )
             elif action_type == "terminate_session":
-                session_id = params.get("session_id", "sess_auto_unknown")
                 res = terminate_session(
-                    account_id=target,
-                    session_id=session_id,
-                    reason=reason,
-                    operator=exec_operator
+                    username=target,
+                    reason=reason
                 )
             elif action_type == "unlock_account":
                 res = unlock_account(
-                    account_id=target,
-                    reason=reason,
-                    operator=exec_operator
+                    username=target,
+                    reason=reason
                 )
             elif action_type == "unblock_ip":
                 res = unblock_ip(
                     ip_address=target,
-                    reason=reason,
-                    operator=exec_operator
+                    reason=reason
                 )
             else:
                 raise ValueError(f"지원하지 않는 조치 유형입니다: {action_type}")
@@ -145,7 +138,7 @@ class ApprovalGate:
                 "execution_result": res
             }
 
-        except VIPAccountException as ve:
+        except VIPApprovalRequired as ve:
             return {
                 "success": False,
                 "status": "VIP_BLOCKED",
@@ -154,6 +147,7 @@ class ApprovalGate:
                 "target": target,
                 "error": str(ve)
             }
+
 
 
 _gate_instance = ApprovalGate()
@@ -187,9 +181,8 @@ def handle_false_positive(
     if target_account:
         try:
             res_acc = unlock_account(
-                account_id=target_account,
-                reason=f"[오탐 복구] {fp_reason}",
-                operator=operator
+                username=target_account,
+                reason=f"[오탐 복구] {fp_reason}"
             )
             rollback_results.append(res_acc)
         except Exception as e:
@@ -199,12 +192,12 @@ def handle_false_positive(
         try:
             res_ip = unblock_ip(
                 ip_address=target_ip,
-                reason=f"[오탐 복구] {fp_reason}",
-                operator=operator
+                reason=f"[오탐 복구] {fp_reason}"
             )
             rollback_results.append(res_ip)
         except Exception as e:
             rollback_results.append({"error": f"IP 차단 해제 실패: {str(e)}"})
+
 
     # 2. 4과목 AI/ML 탐지 모델 재학습용 라벨 데이터 추가
     base_dir = os.path.dirname(os.path.abspath(__file__))

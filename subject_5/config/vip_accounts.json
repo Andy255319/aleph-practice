@@ -1,36 +1,6 @@
 {
   "vip_accounts": [
-    {
-      "account_id": "ceo_kim",
-      "name": "김대표",
-      "role": "Chief Executive Officer",
-      "department": "Executive Management",
-      "protection_level": "CRITICAL",
-      "exemption_reason": "경영 업무 마비 방지 및 고위 임원 사전 유선 승인 필수"
-    },
-    {
-      "account_id": "cto_lee",
-      "name": "이최고기술책임자",
-      "role": "Chief Technology Officer",
-      "department": "R&D Strategy",
-      "protection_level": "CRITICAL",
-      "exemption_reason": "인프라 마스터 권한 소유자로 오잠금 시 전체 개발 배포 중단 위험"
-    },
-    {
-      "account_id": "ciso_park",
-      "name": "박정보보호최고책임자",
-      "role": "Chief Information Security Officer",
-      "department": "Security Operation",
-      "protection_level": "HIGH",
-      "exemption_reason": "보안 통제 최종 결재권자"
-    },
-    {
-      "account_id": "core_service_admin",
-      "name": "운영계 시스템 서비스 계정",
-      "role": "Service Account",
-      "department": "Core Infrastructure",
-      "protection_level": "HIGH",
-      "exemption_reason": "대외 결제 연동 서비스 데몬 계정으로 자동 잠금 시 결제 결함 발생"
-    }
+    "kim",
+    "park"
   ]
 }

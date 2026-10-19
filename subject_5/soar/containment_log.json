@@ -230,5 +230,271 @@
     "status": "SUCCESS",
     "details": "방화벽 차단 규칙 롤백 완료. 해제 사유: [오탐 복구] 임직원 해외 출장 중 공항 와이파이 VPN 접속에 따른 오경보 확인",
     "operator": "SECOPS_ANALYST_KANG"
+  },
+  {
+    "timestamp": "2026-10-19T12:18:31.165814",
+    "action": "unlock_account",
+    "target": "lee",
+    "result": "FAIL",
+    "reason": "해제 사유 누락 (사유가 없거나 공백)"
+  },
+  {
+    "timestamp": "2026-10-19T12:18:31.166812",
+    "action": "lock_account",
+    "target": "user_test",
+    "result": "SUCCESS",
+    "reason": "잠금 테스트"
+  },
+  {
+    "timestamp": "2026-10-19T12:18:31.174323",
+    "action": "unlock_account",
+    "target": "user_test",
+    "result": "SUCCESS",
+    "reason": "정상 확인 후 해제"
+  },
+  {
+    "timestamp": "2026-10-19T12:18:31.180868",
+    "action": "unlock_account",
+    "target": "user_test",
+    "result": "SKIPPED",
+    "reason": "이미 잠금 해제되었거나 잠금 상태가 아닌 계정"
+  },
+  {
+    "timestamp": "2026-10-19T12:18:31.187185",
+    "action": "lock_account",
+    "target": "lee",
+    "result": "SUCCESS",
+    "reason": "비정상 로그인 반복"
+  },
+  {
+    "timestamp": "2026-10-19T12:18:31.195256",
+    "action": "lock_account",
+    "target": "kim",
+    "result": "APPROVAL_REQUIRED",
+    "reason": "[VIP 보호] 계정 잠금 사전 승인 필요: 계정 탈취 의심"
+  },
+  {
+    "timestamp": "2026-10-19T12:18:31.211242",
+    "action": "block_ip",
+    "target": "203.0.113.25",
+    "result": "SUCCESS",
+    "reason": "악성 IP에서 비정상 로그인 탐지"
+  },
+  {
+    "timestamp": "2026-10-19T12:18:31.212173",
+    "action": "terminate_session",
+    "target": "lee",
+    "result": "SUCCESS",
+    "reason": "악성 IP에서 비정상 로그인 탐지"
+  },
+  {
+    "timestamp": "2026-10-19T12:18:38.300367",
+    "action": "lock_account",
+    "target": "lee",
+    "result": "SUCCESS",
+    "reason": "비정상 로그인 반복"
+  },
+  {
+    "timestamp": "2026-10-19T12:18:38.301253",
+    "action": "lock_account",
+    "target": "kim",
+    "result": "APPROVAL_REQUIRED",
+    "reason": "[VIP 보호] 계정 잠금 사전 승인 필요: 계정 탈취 의심"
+  },
+  {
+    "timestamp": "2026-10-19T12:18:38.307476",
+    "action": "block_ip",
+    "target": "203.0.113.25",
+    "result": "SUCCESS",
+    "reason": "악성 IP에서 비정상 로그인 탐지"
+  },
+  {
+    "timestamp": "2026-10-19T12:18:38.315865",
+    "action": "terminate_session",
+    "target": "lee",
+    "result": "SUCCESS",
+    "reason": "악성 IP에서 비정상 로그인 탐지"
+  },
+  {
+    "timestamp": "2026-10-19T12:18:38.322821",
+    "action": "unlock_account",
+    "target": "lee",
+    "result": "FAIL",
+    "reason": "해제 사유 누락 (사유가 없거나 공백)"
+  },
+  {
+    "timestamp": "2026-10-19T12:18:38.329778",
+    "action": "unlock_account",
+    "target": "lee",
+    "result": "SUCCESS",
+    "reason": "관제 분석 완료 후 정상 복구"
+  },
+  {
+    "timestamp": "2026-10-19T12:18:38.335982",
+    "action": "unlock_account",
+    "target": "lee",
+    "result": "SKIPPED",
+    "reason": "이미 잠금 해제되었거나 잠금 상태가 아닌 계정"
+  },
+  {
+    "timestamp": "2026-10-19T12:18:38.341965",
+    "action": "unblock_ip",
+    "target": "203.0.113.25",
+    "result": "SUCCESS",
+    "reason": "공격 소멸 확인 후 방화벽 롤백"
+  },
+  {
+    "timestamp": "2026-10-19T12:18:38.350169",
+    "action": "terminate_session",
+    "target": "lee",
+    "result": "SUCCESS",
+    "reason": "자동화 세션 종료"
+  },
+  {
+    "timestamp": "2026-10-19T12:18:38.356264",
+    "action": "unlock_account",
+    "target": "kim",
+    "result": "SKIPPED",
+    "reason": "이미 잠금 해제되었거나 잠금 상태가 아닌 계정"
+  },
+  {
+    "timestamp": "2026-10-19T12:18:38.362811",
+    "action": "unblock_ip",
+    "target": "203.0.113.25",
+    "result": "SKIPPED",
+    "reason": "이미 차단 해제되었거나 차단 목록에 없는 IP"
+  },
+  {
+    "timestamp": "2026-10-19T12:23:30.054313",
+    "action": "unlock_account",
+    "target": "lee",
+    "result": "FAIL",
+    "reason": "해제 사유 누락 (사유가 없거나 공백)"
+  },
+  {
+    "timestamp": "2026-10-19T12:23:30.055435",
+    "action": "lock_account",
+    "target": "user_test",
+    "result": "SUCCESS",
+    "reason": "잠금 테스트"
+  },
+  {
+    "timestamp": "2026-10-19T12:23:30.062813",
+    "action": "unlock_account",
+    "target": "user_test",
+    "result": "SUCCESS",
+    "reason": "정상 확인 후 해제"
+  },
+  {
+    "timestamp": "2026-10-19T12:23:30.070271",
+    "action": "unlock_account",
+    "target": "user_test",
+    "result": "SKIPPED",
+    "reason": "이미 잠금 해제되었거나 잠금 상태가 아닌 계정"
+  },
+  {
+    "timestamp": "2026-10-19T12:23:30.077763",
+    "action": "lock_account",
+    "target": "lee",
+    "result": "SUCCESS",
+    "reason": "비정상 로그인 반복"
+  },
+  {
+    "timestamp": "2026-10-19T12:23:30.085030",
+    "action": "lock_account",
+    "target": "kim",
+    "result": "APPROVAL_REQUIRED",
+    "reason": "[VIP 보호] 계정 잠금 사전 승인 필요: 계정 탈취 의심"
+  },
+  {
+    "timestamp": "2026-10-19T12:23:30.097913",
+    "action": "block_ip",
+    "target": "203.0.113.25",
+    "result": "SUCCESS",
+    "reason": "악성 IP에서 비정상 로그인 탐지"
+  },
+  {
+    "timestamp": "2026-10-19T12:23:30.098966",
+    "action": "terminate_session",
+    "target": "lee",
+    "result": "SUCCESS",
+    "reason": "악성 IP에서 비정상 로그인 탐지"
+  },
+  {
+    "timestamp": "2026-10-19T12:23:38.162327",
+    "action": "lock_account",
+    "target": "lee",
+    "result": "SUCCESS",
+    "reason": "비정상 로그인 반복"
+  },
+  {
+    "timestamp": "2026-10-19T12:23:38.163436",
+    "action": "lock_account",
+    "target": "kim",
+    "result": "APPROVAL_REQUIRED",
+    "reason": "[VIP 보호] 계정 잠금 사전 승인 필요: 계정 탈취 의심"
+  },
+  {
+    "timestamp": "2026-10-19T12:23:38.169960",
+    "action": "block_ip",
+    "target": "203.0.113.25",
+    "result": "SUCCESS",
+    "reason": "악성 IP에서 비정상 로그인 탐지"
+  },
+  {
+    "timestamp": "2026-10-19T12:23:38.176869",
+    "action": "terminate_session",
+    "target": "lee",
+    "result": "SUCCESS",
+    "reason": "악성 IP에서 비정상 로그인 탐지"
+  },
+  {
+    "timestamp": "2026-10-19T12:23:38.183328",
+    "action": "unlock_account",
+    "target": "lee",
+    "result": "FAIL",
+    "reason": "해제 사유 누락 (사유가 없거나 공백)"
+  },
+  {
+    "timestamp": "2026-10-19T12:23:38.190420",
+    "action": "unlock_account",
+    "target": "lee",
+    "result": "SUCCESS",
+    "reason": "관제 분석 완료 후 정상 복구"
+  },
+  {
+    "timestamp": "2026-10-19T12:23:38.198231",
+    "action": "unlock_account",
+    "target": "lee",
+    "result": "SKIPPED",
+    "reason": "이미 잠금 해제되었거나 잠금 상태가 아닌 계정"
+  },
+  {
+    "timestamp": "2026-10-19T12:23:38.204766",
+    "action": "unblock_ip",
+    "target": "203.0.113.25",
+    "result": "SUCCESS",
+    "reason": "공격 소멸 확인 후 방화벽 롤백"
+  },
+  {
+    "timestamp": "2026-10-19T12:23:38.212033",
+    "action": "terminate_session",
+    "target": "lee",
+    "result": "SUCCESS",
+    "reason": "자동화 세션 종료"
+  },
+  {
+    "timestamp": "2026-10-19T12:23:38.218992",
+    "action": "unlock_account",
+    "target": "kim",
+    "result": "SKIPPED",
+    "reason": "이미 잠금 해제되었거나 잠금 상태가 아닌 계정"
+  },
+  {
+    "timestamp": "2026-10-19T12:23:38.225222",
+    "action": "unblock_ip",
+    "target": "203.0.113.25",
+    "result": "SKIPPED",
+    "reason": "이미 차단 해제되었거나 차단 목록에 없는 IP"
   }
 ]
