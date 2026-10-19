@@ -1,0 +1,371 @@
+[
+  {
+    "event_id": "EVT-LOGIN-a2749d92",
+    "timestamp": "2026-10-19T02:30:15",
+    "event_source": "login",
+    "user_id": "user_night",
+    "source_ip": "203.0.113.50",
+    "action": "login",
+    "status": "SUCCESS",
+    "details": {
+      "location": "Unknown"
+    }
+  },
+  {
+    "event_id": "EVT-FW-8f2aaa9b",
+    "timestamp": "2026-10-19T09:00:10",
+    "event_source": "firewall",
+    "user_id": "N/A",
+    "source_ip": "192.168.1.10",
+    "action": "connect_443",
+    "status": "ALLOW",
+    "details": {
+      "dst_ip": "10.0.0.5",
+      "port": 443,
+      "protocol": "TCP",
+      "bytes_transferred": 1500
+    }
+  },
+  {
+    "event_id": "EVT-LOGIN-7238984a",
+    "timestamp": "2026-10-19T09:01:15",
+    "event_source": "login",
+    "user_id": "user_alice",
+    "source_ip": "192.168.1.10",
+    "action": "login",
+    "status": "SUCCESS",
+    "details": {
+      "location": "Seoul"
+    }
+  },
+  {
+    "event_id": "EVT-SAAS-0116f33b",
+    "timestamp": "2026-10-19T09:02:00",
+    "event_source": "saas",
+    "user_id": "user_alice",
+    "source_ip": "192.168.1.10",
+    "action": "file_download",
+    "status": "SUCCESS",
+    "details": {
+      "app_name": "GoogleDrive",
+      "file_count": 2
+    }
+  },
+  {
+    "event_id": "EVT-FW-3d67b8ad",
+    "timestamp": "2026-10-19T09:05:00",
+    "event_source": "firewall",
+    "user_id": "N/A",
+    "source_ip": "192.168.1.11",
+    "action": "connect_443",
+    "status": "ALLOW",
+    "details": {
+      "dst_ip": "10.0.0.5",
+      "port": 443,
+      "protocol": "TCP",
+      "bytes_transferred": 2300
+    }
+  },
+  {
+    "event_id": "EVT-LOGIN-ab98f6f0",
+    "timestamp": "2026-10-19T09:05:22",
+    "event_source": "login",
+    "user_id": "user_bob",
+    "source_ip": "192.168.1.11",
+    "action": "login",
+    "status": "SUCCESS",
+    "details": {
+      "location": "Seoul"
+    }
+  },
+  {
+    "event_id": "EVT-FW-d3434be1",
+    "timestamp": "2026-10-19T09:10:15",
+    "event_source": "firewall",
+    "user_id": "N/A",
+    "source_ip": "192.168.1.12",
+    "action": "connect_80",
+    "status": "ALLOW",
+    "details": {
+      "dst_ip": "10.0.0.5",
+      "port": 80,
+      "protocol": "TCP",
+      "bytes_transferred": 1200
+    }
+  },
+  {
+    "event_id": "EVT-SAAS-9db5342a",
+    "timestamp": "2026-10-19T09:11:00",
+    "event_source": "saas",
+    "user_id": "user_bob",
+    "source_ip": "192.168.1.11",
+    "action": "message_post",
+    "status": "SUCCESS",
+    "details": {
+      "app_name": "Slack",
+      "file_count": 0
+    }
+  },
+  {
+    "event_id": "EVT-LOGIN-aa50cae6",
+    "timestamp": "2026-10-19T09:12:00",
+    "event_source": "login",
+    "user_id": "user_charlie",
+    "source_ip": "192.168.1.12",
+    "action": "login",
+    "status": "SUCCESS",
+    "details": {
+      "location": "Busan"
+    }
+  },
+  {
+    "event_id": "EVT-FW-aef5ed0b",
+    "timestamp": "2026-10-19T09:15:00",
+    "event_source": "firewall",
+    "user_id": "N/A",
+    "source_ip": "192.168.1.100",
+    "action": "connect_443",
+    "status": "ALLOW",
+    "details": {
+      "dst_ip": "10.0.0.5",
+      "port": 443,
+      "protocol": "TCP",
+      "bytes_transferred": 45000000
+    }
+  },
+  {
+    "event_id": "EVT-FW-d2a280a0",
+    "timestamp": "2026-10-19T09:15:30",
+    "event_source": "firewall",
+    "user_id": "N/A",
+    "source_ip": "192.168.1.100",
+    "action": "connect_443",
+    "status": "ALLOW",
+    "details": {
+      "dst_ip": "10.0.0.5",
+      "port": 443,
+      "protocol": "TCP",
+      "bytes_transferred": 52000000
+    }
+  },
+  {
+    "event_id": "EVT-FW-60328cc7",
+    "timestamp": "2026-10-19T09:16:00",
+    "event_source": "firewall",
+    "user_id": "N/A",
+    "source_ip": "192.168.1.100",
+    "action": "connect_443",
+    "status": "ALLOW",
+    "details": {
+      "dst_ip": "10.0.0.5",
+      "port": 443,
+      "protocol": "TCP",
+      "bytes_transferred": 61000000
+    }
+  },
+  {
+    "event_id": "EVT-LOGIN-1dd32bef",
+    "timestamp": "2026-10-19T09:20:00",
+    "event_source": "login",
+    "user_id": "user_david",
+    "source_ip": "192.168.1.14",
+    "action": "login",
+    "status": "FAIL",
+    "details": {
+      "location": "Seoul"
+    }
+  },
+  {
+    "event_id": "EVT-FW-8f2e92c4",
+    "timestamp": "2026-10-19T09:20:00",
+    "event_source": "firewall",
+    "user_id": "N/A",
+    "source_ip": "203.0.113.100",
+    "action": "connect_22",
+    "status": "DENY",
+    "details": {
+      "dst_ip": "10.0.0.5",
+      "port": 22,
+      "protocol": "TCP",
+      "bytes_transferred": 850
+    }
+  },
+  {
+    "event_id": "EVT-SAAS-327b95e8",
+    "timestamp": "2026-10-19T09:20:00",
+    "event_source": "saas",
+    "user_id": "user_eve",
+    "source_ip": "198.51.100.23",
+    "action": "export_report",
+    "status": "SUCCESS",
+    "details": {
+      "app_name": "Salesforce",
+      "file_count": 500
+    }
+  },
+  {
+    "event_id": "EVT-LOGIN-0a1fd59a",
+    "timestamp": "2026-10-19T09:21:10",
+    "event_source": "login",
+    "user_id": "user_david",
+    "source_ip": "192.168.1.14",
+    "action": "login",
+    "status": "FAIL",
+    "details": {
+      "location": "Seoul"
+    }
+  },
+  {
+    "event_id": "EVT-LOGIN-4af97949",
+    "timestamp": "2026-10-19T09:22:05",
+    "event_source": "login",
+    "user_id": "user_david",
+    "source_ip": "192.168.1.14",
+    "action": "login",
+    "status": "FAIL",
+    "details": {
+      "location": "Seoul"
+    }
+  },
+  {
+    "event_id": "EVT-SAAS-4b0aa32e",
+    "timestamp": "2026-10-19T09:22:30",
+    "event_source": "saas",
+    "user_id": "user_eve",
+    "source_ip": "198.51.100.23",
+    "action": "mass_file_download",
+    "status": "SUCCESS",
+    "details": {
+      "app_name": "GoogleDrive",
+      "file_count": 150
+    }
+  },
+  {
+    "event_id": "EVT-LOGIN-8a4b2414",
+    "timestamp": "2026-10-19T09:23:01",
+    "event_source": "login",
+    "user_id": "user_david",
+    "source_ip": "192.168.1.14",
+    "action": "login",
+    "status": "FAIL",
+    "details": {
+      "location": "Seoul"
+    }
+  },
+  {
+    "event_id": "EVT-LOGIN-c7dea5b8",
+    "timestamp": "2026-10-19T09:23:45",
+    "event_source": "login",
+    "user_id": "user_david",
+    "source_ip": "192.168.1.14",
+    "action": "login",
+    "status": "FAIL",
+    "details": {
+      "location": "Seoul"
+    }
+  },
+  {
+    "event_id": "EVT-LOGIN-347fed0c",
+    "timestamp": "2026-10-19T09:24:12",
+    "event_source": "login",
+    "user_id": "user_david",
+    "source_ip": "192.168.1.14",
+    "action": "login",
+    "status": "FAIL",
+    "details": {
+      "location": "Seoul"
+    }
+  },
+  {
+    "event_id": "EVT-LOGIN-cc9b7075",
+    "timestamp": "2026-10-19T09:24:50",
+    "event_source": "login",
+    "user_id": "user_david",
+    "source_ip": "192.168.1.14",
+    "action": "login",
+    "status": "SUCCESS",
+    "details": {
+      "location": "Seoul"
+    }
+  },
+  {
+    "event_id": "EVT-FW-caa3e7d8",
+    "timestamp": "2026-10-19T09:30:00",
+    "event_source": "firewall",
+    "user_id": "N/A",
+    "source_ip": "198.51.100.99",
+    "action": "connect_443",
+    "status": "ALLOW",
+    "details": {
+      "dst_ip": "10.0.0.5",
+      "port": 443,
+      "protocol": "TCP",
+      "bytes_transferred": 3400
+    }
+  },
+  {
+    "event_id": "EVT-SAAS-1432fa56",
+    "timestamp": "2026-10-19T09:30:00",
+    "event_source": "saas",
+    "user_id": "user_david",
+    "source_ip": "192.168.1.14",
+    "action": "admin_escalation",
+    "status": "DENIED",
+    "details": {
+      "app_name": "Confluence",
+      "file_count": 0
+    }
+  },
+  {
+    "event_id": "EVT-FW-76a9bf35",
+    "timestamp": "2026-10-19T09:35:12",
+    "event_source": "firewall",
+    "user_id": "N/A",
+    "source_ip": "192.168.1.14",
+    "action": "connect_3389",
+    "status": "ALLOW",
+    "details": {
+      "dst_ip": "10.0.0.8",
+      "port": 3389,
+      "protocol": "TCP",
+      "bytes_transferred": 5000
+    }
+  },
+  {
+    "event_id": "EVT-SAAS-8519c3bb",
+    "timestamp": "2026-10-19T09:40:00",
+    "event_source": "saas",
+    "user_id": "user_frank",
+    "source_ip": "192.168.1.15",
+    "action": "repo_clone",
+    "status": "SUCCESS",
+    "details": {
+      "app_name": "GitHub",
+      "file_count": 1
+    }
+  },
+  {
+    "event_id": "EVT-LOGIN-7b9fb2be",
+    "timestamp": "2026-10-19T10:15:00",
+    "event_source": "login",
+    "user_id": "user_eve",
+    "source_ip": "198.51.100.23",
+    "action": "login",
+    "status": "SUCCESS",
+    "details": {
+      "location": "Moscow"
+    }
+  },
+  {
+    "event_id": "EVT-LOGIN-394e228f",
+    "timestamp": "2026-10-19T10:18:22",
+    "event_source": "login",
+    "user_id": "user_frank",
+    "source_ip": "192.168.1.15",
+    "action": "login",
+    "status": "SUCCESS",
+    "details": {
+      "location": "Incheon"
+    }
+  }
+]

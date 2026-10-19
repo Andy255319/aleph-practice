@@ -1,0 +1,145 @@
+[
+  {
+    "user_id": "user_david",
+    "risk_score": 100,
+    "priority": "HIGH",
+    "is_chain_completed": true,
+    "detection_count": 3,
+    "contributing_factors": [
+      {
+        "rule_id": "RULE-LOGIN-BRUTEFORCE",
+        "rule_name": "다중 로그인 실패 기반 Brute-force 탐지",
+        "score_added": 35
+      },
+      {
+        "rule_id": "RULE-UNAUTHORIZED-ACCESS",
+        "rule_name": "접근통제 정책 위반 비인가 리소스 접근 탐지",
+        "score_added": 30
+      },
+      {
+        "rule_id": "RULE-SAAS-PRIV-ESCALATION",
+        "rule_name": "SaaS 관리자 권한 무단 상승 거부 탐지",
+        "score_added": 30
+      },
+      {
+        "rule_id": "CORRELATION-CHAIN-BONUS",
+        "rule_name": "3단계 침해사고 킬체인 완성 가산점",
+        "score_added": 50
+      }
+    ]
+  },
+  {
+    "user_id": "user_eve",
+    "risk_score": 100,
+    "priority": "HIGH",
+    "is_chain_completed": false,
+    "detection_count": 7,
+    "contributing_factors": [
+      {
+        "rule_id": "RULE-UNAUTHORIZED-ACCESS",
+        "rule_name": "접근통제 정책 위반 비인가 리소스 접근 탐지",
+        "score_added": 30
+      },
+      {
+        "rule_id": "RULE-UNAUTHORIZED-ACCESS",
+        "rule_name": "접근통제 정책 위반 비인가 리소스 접근 탐지",
+        "score_added": 30
+      },
+      {
+        "rule_id": "RULE-SAAS-DATA-EXPORT",
+        "rule_name": "SaaS 대량 고객/보고서 데이터 추출 탐지",
+        "score_added": 45
+      },
+      {
+        "rule_id": "RULE-SAAS-MASS-DOWNLOAD",
+        "rule_name": "SaaS 대량 파일 다운로드(데이터 유출 의심) 탐지",
+        "score_added": 45
+      },
+      {
+        "rule_id": "RULE-IOC-MATCH",
+        "rule_name": "알려진 위협 인텔리전스(IoC) 악성 IP 통신 탐지",
+        "score_added": 50
+      },
+      {
+        "rule_id": "RULE-IOC-MATCH",
+        "rule_name": "알려진 위협 인텔리전스(IoC) 악성 IP 통신 탐지",
+        "score_added": 50
+      },
+      {
+        "rule_id": "RULE-IOC-MATCH",
+        "rule_name": "알려진 위협 인텔리전스(IoC) 악성 IP 통신 탐지",
+        "score_added": 50
+      }
+    ]
+  },
+  {
+    "user_id": "user_night",
+    "risk_score": 20,
+    "priority": "LOW",
+    "is_chain_completed": false,
+    "detection_count": 1,
+    "contributing_factors": [
+      {
+        "rule_id": "RULE-LOGIN-OFFHOUR",
+        "rule_name": "심야 업무 외 시간 비정상 로그인 탐지",
+        "score_added": 20
+      }
+    ]
+  },
+  {
+    "user_id": "user_spiker",
+    "risk_score": 0,
+    "priority": "LOW",
+    "is_chain_completed": false,
+    "detection_count": 0,
+    "contributing_factors": []
+  },
+  {
+    "user_id": "user_charlie",
+    "risk_score": 0,
+    "priority": "LOW",
+    "is_chain_completed": false,
+    "detection_count": 0,
+    "contributing_factors": []
+  },
+  {
+    "user_id": "user_alice",
+    "risk_score": 0,
+    "priority": "LOW",
+    "is_chain_completed": false,
+    "detection_count": 0,
+    "contributing_factors": []
+  },
+  {
+    "user_id": "user_bob",
+    "risk_score": 0,
+    "priority": "LOW",
+    "is_chain_completed": false,
+    "detection_count": 0,
+    "contributing_factors": []
+  },
+  {
+    "user_id": "user_frank",
+    "risk_score": 0,
+    "priority": "LOW",
+    "is_chain_completed": false,
+    "detection_count": 0,
+    "contributing_factors": []
+  },
+  {
+    "user_id": "user_regular1",
+    "risk_score": 0,
+    "priority": "LOW",
+    "is_chain_completed": false,
+    "detection_count": 0,
+    "contributing_factors": []
+  },
+  {
+    "user_id": "user_regular2",
+    "risk_score": 0,
+    "priority": "LOW",
+    "is_chain_completed": false,
+    "detection_count": 0,
+    "contributing_factors": []
+  }
+]

@@ -1,0 +1,39 @@
+{
+  "malicious_ips": [
+    {
+      "ip": "198.51.100.23",
+      "threat_type": "C2_SERVER",
+      "threat_actor": "APT28_FANCY_BEAR",
+      "confidence": "HIGH",
+      "description": "알려진 러시아 연방 배후 APT C2 비컨 수신지"
+    },
+    {
+      "ip": "203.0.113.100",
+      "threat_type": "SSH_BRUTEFORCER",
+      "threat_actor": "AUTOMATED_SCANNER",
+      "confidence": "MEDIUM",
+      "description": "포트 22/3389 대상 무차별 대입 공격 전파 노드"
+    },
+    {
+      "ip": "198.51.100.99",
+      "threat_type": "DATA_EXFILTRATION",
+      "threat_actor": "FINANCIAL_THREAT_GROUP",
+      "confidence": "HIGH",
+      "description": "클라우드 스토리지 유출 타깃 프록시"
+    },
+    {
+      "ip": "185.220.101.5",
+      "threat_type": "TOR_EXIT_NODE",
+      "threat_actor": "ANONYMIZER",
+      "confidence": "HIGH",
+      "description": "공개 Tor 출구 노드 목록 등재"
+    },
+    {
+      "ip": "45.154.255.89",
+      "threat_type": "MALWARE_DISTRIBUTOR",
+      "threat_actor": "COBALT_STRIKE_LOADER",
+      "confidence": "CRITICAL",
+      "description": "악성코드 드로퍼 및 페이로드 호스팅 서버"
+    }
+  ]
+}

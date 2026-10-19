@@ -1,0 +1,161 @@
+{
+  "report_id": "REP-ANOMALY-20261019",
+  "generated_at": "2026-10-19T12:01:59.802971",
+  "total_events_processed": 28,
+  "total_anomalies_detected": 16,
+  "user_risk_scores": [
+    {
+      "user_id": "user_night",
+      "risk_score": 20,
+      "priority": "LOW",
+      "is_chain_completed": false,
+      "detection_count": 1,
+      "contributing_factors": [
+        {
+          "rule_id": "RULE-LOGIN-OFFHOUR",
+          "rule_name": "심야 업무 외 시간 비정상 로그인 탐지",
+          "score_added": 20
+        }
+      ]
+    },
+    {
+      "user_id": "user_alice",
+      "risk_score": 0,
+      "priority": "LOW",
+      "is_chain_completed": false,
+      "detection_count": 0,
+      "contributing_factors": []
+    },
+    {
+      "user_id": "user_bob",
+      "risk_score": 0,
+      "priority": "LOW",
+      "is_chain_completed": false,
+      "detection_count": 0,
+      "contributing_factors": []
+    },
+    {
+      "user_id": "user_charlie",
+      "risk_score": 0,
+      "priority": "LOW",
+      "is_chain_completed": false,
+      "detection_count": 0,
+      "contributing_factors": []
+    },
+    {
+      "user_id": "user_david",
+      "risk_score": 95,
+      "priority": "HIGH",
+      "is_chain_completed": false,
+      "detection_count": 3,
+      "contributing_factors": [
+        {
+          "rule_id": "RULE-LOGIN-BRUTEFORCE",
+          "rule_name": "다중 로그인 실패 기반 Brute-force 탐지",
+          "score_added": 35
+        },
+        {
+          "rule_id": "RULE-UNAUTHORIZED-ACCESS",
+          "rule_name": "접근통제 정책 위반 비인가 리소스 접근 탐지",
+          "score_added": 30
+        },
+        {
+          "rule_id": "RULE-SAAS-PRIV-ESCALATION",
+          "rule_name": "SaaS 관리자 권한 무단 상승 거부 탐지",
+          "score_added": 30
+        }
+      ]
+    },
+    {
+      "user_id": "user_eve",
+      "risk_score": 100,
+      "priority": "HIGH",
+      "is_chain_completed": false,
+      "detection_count": 7,
+      "contributing_factors": [
+        {
+          "rule_id": "RULE-UNAUTHORIZED-ACCESS",
+          "rule_name": "접근통제 정책 위반 비인가 리소스 접근 탐지",
+          "score_added": 30
+        },
+        {
+          "rule_id": "RULE-UNAUTHORIZED-ACCESS",
+          "rule_name": "접근통제 정책 위반 비인가 리소스 접근 탐지",
+          "score_added": 30
+        },
+        {
+          "rule_id": "RULE-SAAS-DATA-EXPORT",
+          "rule_name": "SaaS 대량 고객/보고서 데이터 추출 탐지",
+          "score_added": 45
+        },
+        {
+          "rule_id": "RULE-SAAS-MASS-DOWNLOAD",
+          "rule_name": "SaaS 대량 파일 다운로드(데이터 유출 의심) 탐지",
+          "score_added": 45
+        },
+        {
+          "rule_id": "RULE-IOC-MATCH",
+          "rule_name": "알려진 위협 인텔리전스(IoC) 악성 IP 통신 탐지",
+          "score_added": 50
+        },
+        {
+          "rule_id": "RULE-IOC-MATCH",
+          "rule_name": "알려진 위협 인텔리전스(IoC) 악성 IP 통신 탐지",
+          "score_added": 50
+        },
+        {
+          "rule_id": "RULE-IOC-MATCH",
+          "rule_name": "알려진 위협 인텔리전스(IoC) 악성 IP 통신 탐지",
+          "score_added": 50
+        }
+      ]
+    },
+    {
+      "user_id": "user_frank",
+      "risk_score": 0,
+      "priority": "LOW",
+      "is_chain_completed": false,
+      "detection_count": 0,
+      "contributing_factors": []
+    }
+  ],
+  "high_priority_threats": [
+    {
+      "user_id": "user_david",
+      "risk_score": 95,
+      "summary": "🚨 **[AI 침해 위협 요약 보고: user_david]** (종합 위험도: 95/100점, 우선순위: HIGH)\n해당 사용자는 보안 관제 분석 결과 최상위 위험 수준으로 평가되었습니다. 단일 지표상으로 비정상 트래픽 급증 또는 핵심 기밀 자산에 대한 인가받지 않은 침투 정황이 감지되었습니다.\n**세부 탐지 지표**:\n- [RULE-LOGIN-BRUTEFORCE] 5분 윈도우 내 6회 로그인 실패 감지 (이후 로그인 성공 포착: 계정 탈취 위험)\n- [RULE-UNAUTHORIZED-ACCESS] RBAC 정책 거부: 사용자 'user_david'는 리소스 'Confluence'에 대한 인가 권한이 없습니다.\n- [RULE-SAAS-PRIV-ESCALATION] 관리자 권한 강제 획득 시도 차단됨\n**긴급 대응 권고**: 즉각적인 세션 만료 및 IdP 계정 잠금 승인 요청을 진행하고 방화벽 차단 룰을 활성화하십시오."
+    },
+    {
+      "user_id": "user_eve",
+      "risk_score": 100,
+      "summary": "🚨 **[AI 침해 위협 요약 보고: user_eve]** (종합 위험도: 100/100점, 우선순위: HIGH)\n해당 사용자는 보안 관제 분석 결과 최상위 위험 수준으로 평가되었습니다. 단일 지표상으로 비정상 트래픽 급증 또는 핵심 기밀 자산에 대한 인가받지 않은 침투 정황이 감지되었습니다.\n**세부 탐지 지표**:\n- [RULE-UNAUTHORIZED-ACCESS] RBAC 정책 거부: 미등록 사용자 'user_eve' 접근 차단\n- [RULE-UNAUTHORIZED-ACCESS] RBAC 정책 거부: 미등록 사용자 'user_eve' 접근 차단\n- [RULE-SAAS-DATA-EXPORT] SaaS 상에서 500건의 대량 데이터 외부 반출(Export) 포착\n- [RULE-SAAS-MASS-DOWNLOAD] 임계치(50개)를 초과하는 150개 파일 일괄 다운로드 포착\n- [RULE-IOC-MATCH] 위협 행위자 [APT28_FANCY_BEAR]의 C2/악성 IP (198.51.100.23)와의 통신 확인\n- [RULE-IOC-MATCH] 위협 행위자 [APT28_FANCY_BEAR]의 C2/악성 IP (198.51.100.23)와의 통신 확인\n- [RULE-IOC-MATCH] 위협 행위자 [APT28_FANCY_BEAR]의 C2/악성 IP (198.51.100.23)와의 통신 확인\n**긴급 대응 권고**: 즉각적인 세션 만료 및 IdP 계정 잠금 승인 요청을 진행하고 방화벽 차단 룰을 활성화하십시오."
+    },
+    {
+      "target": "192.168.1.100",
+      "risk_score": 90,
+      "summary": "🚨 **[네트워크 인프라 위협]** 출발지 IP `192.168.1.100`에서 평시 대비 18947.4배의 비정상 대량 트래픽(45,000,000 Bytes) 전송 감지. 즉각적인 WAF 차단 권고."
+    },
+    {
+      "target": "192.168.1.100",
+      "risk_score": 90,
+      "summary": "🚨 **[네트워크 인프라 위협]** 출발지 IP `192.168.1.100`에서 평시 대비 21894.7배의 비정상 대량 트래픽(52,000,000 Bytes) 전송 감지. 즉각적인 WAF 차단 권고."
+    },
+    {
+      "target": "192.168.1.100",
+      "risk_score": 90,
+      "summary": "🚨 **[네트워크 인프라 위협]** 출발지 IP `192.168.1.100`에서 평시 대비 25684.2배의 비정상 대량 트래픽(61,000,000 Bytes) 전송 감지. 즉각적인 WAF 차단 권고."
+    }
+  ],
+  "tuning_metrics": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1_score": 1.0
+  },
+  "registered_agent_tools": [
+    "detect_bruteforce",
+    "detect_traffic_spike",
+    "match_ioc",
+    "detect_saas_anomaly",
+    "calculate_risk_score"
+  ]
+}

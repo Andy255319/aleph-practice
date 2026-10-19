@@ -1,0 +1,26 @@
+{
+  "login_detection": {
+    "bruteforce_fail_threshold": 5,
+    "bruteforce_window_minutes": 5,
+    "offhour_start_hour": 22,
+    "offhour_end_hour": 6
+  },
+  "traffic_detection": {
+    "baseline_sigma_multiplier": 3.0,
+    "min_bytes_threshold": 10000000
+  },
+  "saas_detection": {
+    "mass_download_file_threshold": 50,
+    "export_record_threshold": 300
+  },
+  "risk_scoring": {
+    "weight_bruteforce": 35,
+    "weight_offhour_login": 20,
+    "weight_traffic_spike": 40,
+    "weight_saas_anomaly": 45,
+    "weight_ioc_match": 50,
+    "weight_unauthorized_access": 30,
+    "chain_correlation_bonus": 50,
+    "high_priority_cutoff": 70
+  }
+}
