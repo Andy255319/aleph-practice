@@ -1,24 +1,17 @@
-# Day 1 로그 데이터셋 탐색 및 정규화 결과 보고서
+# Day 1: 로그 정규화 및 데이터 무결성 요약 보고서
 
-- **실행 일시**: 2026-10-19 12:01:59
-- **정규화 산출물**: `C:\Users\user\Desktop\aleph\aleph=practice\subject_4\anomaly_detection\normalized_events.json`
+- 생성 시각: 2026-10-19 12:46:35
 
-## 1. 정규화 전/후 데이터 건수 비교
+## 1. 정제 전/후 건수 비교 (실습 교재 데이터셋 기준)
 
-| 로그 소스 | 원본 건수 | 정제/정규화 후 건수 | 결측/이상 정제 건수 | 정제 사유 |
-|---|---|---|---|---|
-| **로그인 로그 (Login)** | 15건 | 13건 | 2건 | 사용자 ID 누락(1건), 타임스탬프 오류 `2026-99-99`(1건) |
-| **방화벽 로그 (Firewall)** | 10건 | 9건 | 1건 | 출발지 IP 결측(1건) |
-| **SaaS 감사 로그 (SaaS)** | 7건 | 6건 | 1건 | 수행자(actor) 결측(1건) |
-| **합계** | **32건** | **28건** | **4건** | 전체 무결성 보증 완료 |
+| 로그 소스 | 원본 건수 | 정제 후 정규화 건수 | 제외 건수 (결측치 / 이상 타임스탬프) |
+| :--- | :---: | :---: | :---: |
+| 로그인 감사 로그 (`login_logs_practice.csv`) | 10 | 7 | 3건 (user/ip 누락 2건, not-a-time 1건) |
+| 방화벽 트래픽 로그 (`firewall_logs_practice.csv`) | 10 | 7 | 3건 (src_ip/dst_ip 누락 2건, not-a-time 1건) |
+| SaaS 클라우드 로그 (`saas_logs_practice.csv`) | 10 | 8 | 2건 (user 누락 1건, not-a-time 1건) |
+| **총합계** | **30** | **22** | **8건** |
 
-## 2. 공통 스키마 규격 (Standard Schema)
-모든 이종 로그는 아래 7대 표준 필드로 단일화되었습니다:
-- `event_id`: 이벤트 고유 식별자 (UUID)
-- `timestamp`: ISO-8601 표준 타임스탬프
-- `event_source`: 소스 분류 (login, firewall, saas)
-- `user_id`: 사용자 식별자
-- `source_ip`: 인입 IP 주소
-- `action`: 수행 작업
-- `status`: 처리 결과 (SUCCESS, FAIL, ALLOW, DENY)
-- `details`: 소스별 특화 세부 메타데이터 (포트, 바이트량, SaaS 앱명 등)
+## 2. 주요 정제 및 정규화 특징
+1. **타임스탬프 다형성 지원**: `2026/10/05`와 `2026-10-05` 형식을 통합 파싱하여 ISO-8601로 일원화
+2. **비정상 문자열 제거**: `not-a-time` 결측 타임스탬프 자동 필터링
+3. **공통 스키마 규격화**: `event_id`, `timestamp`, `event_source`, `user_id`, `source_ip`, `action`, `status`, `details` 8개 필드로 통일

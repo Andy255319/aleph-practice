@@ -1,0 +1,32 @@
+{
+  "user_baselines": {
+    "kim": {
+      "department": "marketing",
+      "normal_services": ["drive"],
+      "normal_hours": [8, 19],
+      "max_downloads_per_minute": 1,
+      "allowed_actions": ["LOGIN", "DOWNLOAD"]
+    },
+    "lee": {
+      "department": "development",
+      "normal_services": ["slack", "jira"],
+      "normal_hours": [9, 19],
+      "max_downloads_per_minute": 0,
+      "allowed_actions": ["LOGIN"]
+    },
+    "park": {
+      "department": "design",
+      "normal_services": ["drive"],
+      "normal_hours": [9, 19],
+      "max_downloads_per_minute": 2,
+      "allowed_actions": ["UPLOAD", "DOWNLOAD"]
+    },
+    "choi": {
+      "department": "operations",
+      "normal_services": ["mail"],
+      "normal_hours": [9, 19],
+      "max_downloads_per_minute": 0,
+      "allowed_actions": ["LOGIN"]
+    }
+  }
+}

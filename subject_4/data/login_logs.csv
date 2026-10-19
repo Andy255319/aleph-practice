@@ -1,16 +1,11 @@
-timestamp,user_id,ip_address,action,status,location
-2026-10-19 09:01:15,user_alice,192.168.1.10,login,SUCCESS,Seoul
-2026-10-19 09:05:22,user_bob,192.168.1.11,login,SUCCESS,Seoul
-2026-10-19 09:12:00,user_charlie,192.168.1.12,login,SUCCESS,Busan
-2026-10-19 09:15:30,,192.168.1.13,login,SUCCESS,Seoul
-2026-10-19 09:20:00,user_david,192.168.1.14,login,FAIL,Seoul
-2026-10-19 09:21:10,user_david,192.168.1.14,login,FAIL,Seoul
-2026-10-19 09:22:05,user_david,192.168.1.14,login,FAIL,Seoul
-2026-10-19 09:23:01,user_david,192.168.1.14,login,FAIL,Seoul
-2026-10-19 09:23:45,user_david,192.168.1.14,login,FAIL,Seoul
-2026-10-19 09:24:12,user_david,192.168.1.14,login,FAIL,Seoul
-2026-10-19 09:24:50,user_david,192.168.1.14,login,SUCCESS,Seoul
-2026-10-19 02:30:15,user_night,203.0.113.50,login,SUCCESS,Unknown
-2026-99-99 25:99:99,user_corrupt,192.168.1.99,login,FAIL,Seoul
-2026-10-19 10:15:00,user_eve,198.51.100.23,login,SUCCESS,Moscow
-2026-10-19 10:18:22,user_frank,192.168.1.15,login,SUCCESS,Incheon
+timestamp,user,src_ip,result
+2026-10-05 08:55:12,kim,192.168.110.21,SUCCESS
+2026-10-05 09:01:03,lee,192.168.110.22,FAIL
+2026-10-05 09:01:08,lee,192.168.110.22,FAIL
+2026-10-05 09:01:15,lee,192.168.110.22,SUCCESS
+2026-10-05 09:15:44,park,192.168.110.23,SUCCESS
+2026/10/05 09:20:11,choi,192.168.110.24,SUCCESS
+not-a-time,kim,192.168.110.21,FAIL
+2026-10-05 10:05:32,,192.168.110.25,FAIL
+2026-10-05 10:06:01,kim,,FAIL
+2026-10-05 23:48:02,choi,192.168.110.24,SUCCESS

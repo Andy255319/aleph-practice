@@ -1,0 +1,48 @@
+# Aleph AI Security Automation Practice
+
+본 저장소는 인공지능 기반 보안 관제 및 사고 대응 자동화 실습 프로젝트 워크스페이스입니다.
+
+---
+
+## 과목별 구성
+
+### 1. [Subject 4: 이상탐지 자동화 파이프라인 (Day 1 ~ Day 5)](file:///c:/Users/user/Desktop/aleph/aleph=practice/subject_4/4Readme.md)
+- **교재 규격 실습 데이터셋 탑재 (`subject_4/data/`)**:
+  - `login_logs_practice.csv`: 10행 (결측치, not-a-time, 슬래시/대시 혼용 날짜, lee 브루트포스 포함)
+  - `firewall_logs_practice.csv`: 10행 (결측치, not-a-time, 포트 22/445 DENY 차단 포함)
+  - `saas_logs_practice.csv`: 10행 (결측치, not-a-time, lee 심야 드라이브 다운로드 포함)
+- **Day 4 슬라이드 표 명세 6대 핵심 탐지 함수 & 상관분석 함수**:
+  1. `detect_bruteforce()`: 사용자별 로그인 로그 및 시간 윈도우 집계 (단일 로그 평가 불가 원칙)
+  2. `detect_offhour_login()`: 단일 로그 타임스탬프 심야(22:00~06:00) 개별 이벤트 즉시 평가
+  3. `detect_traffic_spike()`: 여러 시점 트래픽 데이터의 베이스라인 통계 기반 급증(Spike) 탐지
+  4. `detect_unauthorized_access()`: 접근 로그와 권한 정책(RBAC/방화벽) 연동 정책 평가 결과 이상 변환
+  5. `detect_saas_anomaly()`: 사용자별 정상 패턴(기준선) 대비 비인가 서비스 및 심야 유출 감지
+  6. `match_ioc()`: IP·도메인과 최신 위협 인텔리전스(IOC) 목록 매칭 결과 변환
+  7. `correlate_events()`: 다단계 침해사고 킬체인(초기 침투 $\rightarrow$ 비인가 정찰 $\rightarrow$ 심야 유출) 종합 평가
+- **Day 4 오탐(FP) 튜닝**: 30건 라벨셋 기반 정밀도 100%, 재현율 100%, 오탐 0건 달성
+- **Day 5 AI 통합**: Agent Core Tool Router 등록 및 High 우선순위 AI 자연어 분석 보고서 자동화
+
+### 2. [Subject 5: SOAR Response 자동화 파이프라인 (Day 1 ~ Day 4)](file:///c:/Users/user/Desktop/aleph/aleph=practice/subject_5/5Readme.md)
+- **슬라이드 규격 플레이북 템플릿**: `PB-TRAFFIC-001`, `PB-LOGIN-001`, `PB-EXFIL-001`, `PB-RANSOM-001`
+- **인시던트 4단계 상태 머신**: `detected` $\rightarrow$ `analyzed` $\rightarrow$ `contained` $\rightarrow$ `closed`
+- **대응 격리 조치**: 계정 잠금(`lock_account`), IP 차단(`block_ip`), 세션 만료(`terminate_session`), 롤백 복구
+- **승인 게이트 & VIP 보호**: `VIPApprovalRequired` 예외 발생 및 관리자 승인 게이트웨이(`execute_action`)
+- **티켓 연동 및 티어별 에스컬레이션**: Jira 연동 티켓 발급 및 자동 라우팅
+- **AI 종합 보고서**: 마크다운 및 JSON 형태의 최종 침해사고 대응 보고서 자동 생성
+
+---
+
+## 실행 방법
+
+```bash
+# 4과목 전체 파이프라인 실행
+cd subject_4
+python main.py
+
+# 4과목 단위 테스트 스위트 실행
+python -m unittest tests/test_all_anomaly_detection.py
+
+# 5과목 전체 SOAR 시뮬레이션 실행
+cd ../subject_5
+python main.py
+```

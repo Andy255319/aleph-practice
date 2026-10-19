@@ -1,145 +1,508 @@
-[
-  {
-    "user_id": "user_david",
-    "risk_score": 100,
-    "priority": "HIGH",
-    "is_chain_completed": true,
-    "detection_count": 3,
-    "contributing_factors": [
+{
+  "lee": {
+    "user_id": "lee",
+    "detection_count": 7,
+    "detections": [
       {
         "rule_id": "RULE-LOGIN-BRUTEFORCE",
         "rule_name": "다중 로그인 실패 기반 Brute-force 탐지",
-        "score_added": 35
+        "target_user": "lee",
+        "source_ip": "192.168.110.22",
+        "window_start": "2026-10-05T09:01:03",
+        "window_end": "2026-10-05T09:01:08",
+        "fail_count": 2,
+        "threshold": 2,
+        "consecutive_success": true,
+        "severity": "CRITICAL",
+        "details": "5분 윈도우 내 2회 로그인 실패 감지 (이후 로그인 성공 포착: 계정 탈취 위험)"
       },
       {
-        "rule_id": "RULE-UNAUTHORIZED-ACCESS",
-        "rule_name": "접근통제 정책 위반 비인가 리소스 접근 탐지",
-        "score_added": 30
+        "rule_id": "RULE-UNAUTHORIZED-NETWORK-ACCESS",
+        "rule_name": "방화벽 정책 차단(DENY) 기반 비인가 포트 접근 탐지",
+        "event_id": "EVT-FW-a577aed1",
+        "user_id": "lee",
+        "source_ip": "192.168.110.22",
+        "destination_ip": "10.0.0.30",
+        "target_port": 22,
+        "timestamp": "2026-10-05T09:04:10",
+        "decision": "DENY",
+        "policy_reason": "포트 22는 사용자 'lee'의 인가 포트([443])에 포함되지 않음",
+        "severity": "HIGH",
+        "details": "인가되지 않은 포트 22 접근 시도 차단됨 (방화벽 정책 평가 결과 이상 변환)"
       },
       {
-        "rule_id": "RULE-SAAS-PRIV-ESCALATION",
-        "rule_name": "SaaS 관리자 권한 무단 상승 거부 탐지",
-        "score_added": 30
+        "rule_id": "RULE-UNAUTHORIZED-NETWORK-ACCESS",
+        "rule_name": "방화벽 정책 차단(DENY) 기반 비인가 포트 접근 탐지",
+        "event_id": "EVT-FW-a31e0df5",
+        "user_id": "lee",
+        "source_ip": "192.168.110.22",
+        "destination_ip": "10.0.0.31",
+        "target_port": 22,
+        "timestamp": "2026-10-05T09:04:15",
+        "decision": "DENY",
+        "policy_reason": "포트 22는 사용자 'lee'의 인가 포트([443])에 포함되지 않음",
+        "severity": "HIGH",
+        "details": "인가되지 않은 포트 22 접근 시도 차단됨 (방화벽 정책 평가 결과 이상 변환)"
       },
       {
-        "rule_id": "CORRELATION-CHAIN-BONUS",
-        "rule_name": "3단계 침해사고 킬체인 완성 가산점",
-        "score_added": 50
+        "rule_id": "RULE-UNAUTHORIZED-SAAS-ACCESS",
+        "rule_name": "RBAC 권한 정책 위반 SaaS 서비스 접근 탐지",
+        "event_id": "EVT-SAAS-1a24b02e",
+        "user_id": "lee",
+        "resource": "drive",
+        "source_ip": "192.168.110.22",
+        "timestamp": "2026-10-05T23:40:05",
+        "decision": "DENY",
+        "policy_reason": "사용자 'lee'는 리소스 'drive'에 대한 인가 권한이 없습니다.",
+        "severity": "HIGH",
+        "details": "사용자 'lee'의 권한 정책 위반 (사용자 'lee'는 리소스 'drive'에 대한 인가 권한이 없습니다.)"
+      },
+      {
+        "rule_id": "RULE-SAAS-ANOMALY-SERVICE",
+        "rule_name": "사용자 정상 사용 패턴 이탈 서비스 접근 탐지",
+        "event_id": "EVT-SAAS-1a24b02e",
+        "user_id": "lee",
+        "service": "drive",
+        "source_ip": "192.168.110.22",
+        "timestamp": "2026-10-05T23:40:05",
+        "baseline_services": [
+          "slack",
+          "jira"
+        ],
+        "severity": "HIGH",
+        "details": "사용자 'lee'의 평소 사용 패턴(['slack', 'jira'])에 없는 비인가 서비스 'drive' 접근 포착"
+      },
+      {
+        "rule_id": "RULE-SAAS-ANOMALY-OFFHOUR-EXFIL",
+        "rule_name": "업무 외 시간(심야) SaaS 데이터 다운로드 이상 탐지",
+        "event_id": "EVT-SAAS-1a24b02e",
+        "user_id": "lee",
+        "service": "drive",
+        "source_ip": "192.168.110.22",
+        "timestamp": "2026-10-05T23:40:05",
+        "hour": 23,
+        "severity": "CRITICAL",
+        "details": "평소 업무시간(9~19시) 외 심야(23:40:05)에 'drive' 대량/중요 다운로드 수행"
+      },
+      {
+        "rule_id": "RULE-IOC-MATCH",
+        "rule_name": "위협 인텔리전스(IoC) 악성 IP 매칭 탐지",
+        "event_id": "EVT-FW-a577aed1",
+        "user_id": "lee",
+        "matched_ip": "10.0.0.30",
+        "threat_type": "SUSPICIOUS_RECON_TARGET",
+        "threat_actor": "LATERAL_SCAN_TARGET",
+        "confidence": "HIGH",
+        "timestamp": "2026-10-05T09:04:10",
+        "severity": "CRITICAL",
+        "details": "알려진 위협 행위자 [LATERAL_SCAN_TARGET]의 악성 IP (10.0.0.30) 연루 이벤트 확인 (IOC 결과 탐지 변환)"
       }
-    ]
+    ],
+    "chain_analysis": {
+      "is_chain_completed": true,
+      "chain_length": 3,
+      "stage1_initial_access": [
+        {
+          "rule_id": "RULE-LOGIN-BRUTEFORCE",
+          "rule_name": "다중 로그인 실패 기반 Brute-force 탐지",
+          "target_user": "lee",
+          "source_ip": "192.168.110.22",
+          "window_start": "2026-10-05T09:01:03",
+          "window_end": "2026-10-05T09:01:08",
+          "fail_count": 2,
+          "threshold": 2,
+          "consecutive_success": true,
+          "severity": "CRITICAL",
+          "details": "5분 윈도우 내 2회 로그인 실패 감지 (이후 로그인 성공 포착: 계정 탈취 위험)"
+        },
+        {
+          "rule_id": "RULE-SAAS-ANOMALY-OFFHOUR-EXFIL",
+          "rule_name": "업무 외 시간(심야) SaaS 데이터 다운로드 이상 탐지",
+          "event_id": "EVT-SAAS-1a24b02e",
+          "user_id": "lee",
+          "service": "drive",
+          "source_ip": "192.168.110.22",
+          "timestamp": "2026-10-05T23:40:05",
+          "hour": 23,
+          "severity": "CRITICAL",
+          "details": "평소 업무시간(9~19시) 외 심야(23:40:05)에 'drive' 대량/중요 다운로드 수행"
+        }
+      ],
+      "stage2_lateral_privilege": [
+        {
+          "rule_id": "RULE-UNAUTHORIZED-NETWORK-ACCESS",
+          "rule_name": "방화벽 정책 차단(DENY) 기반 비인가 포트 접근 탐지",
+          "event_id": "EVT-FW-a577aed1",
+          "user_id": "lee",
+          "source_ip": "192.168.110.22",
+          "destination_ip": "10.0.0.30",
+          "target_port": 22,
+          "timestamp": "2026-10-05T09:04:10",
+          "decision": "DENY",
+          "policy_reason": "포트 22는 사용자 'lee'의 인가 포트([443])에 포함되지 않음",
+          "severity": "HIGH",
+          "details": "인가되지 않은 포트 22 접근 시도 차단됨 (방화벽 정책 평가 결과 이상 변환)"
+        },
+        {
+          "rule_id": "RULE-UNAUTHORIZED-NETWORK-ACCESS",
+          "rule_name": "방화벽 정책 차단(DENY) 기반 비인가 포트 접근 탐지",
+          "event_id": "EVT-FW-a31e0df5",
+          "user_id": "lee",
+          "source_ip": "192.168.110.22",
+          "destination_ip": "10.0.0.31",
+          "target_port": 22,
+          "timestamp": "2026-10-05T09:04:15",
+          "decision": "DENY",
+          "policy_reason": "포트 22는 사용자 'lee'의 인가 포트([443])에 포함되지 않음",
+          "severity": "HIGH",
+          "details": "인가되지 않은 포트 22 접근 시도 차단됨 (방화벽 정책 평가 결과 이상 변환)"
+        },
+        {
+          "rule_id": "RULE-UNAUTHORIZED-SAAS-ACCESS",
+          "rule_name": "RBAC 권한 정책 위반 SaaS 서비스 접근 탐지",
+          "event_id": "EVT-SAAS-1a24b02e",
+          "user_id": "lee",
+          "resource": "drive",
+          "source_ip": "192.168.110.22",
+          "timestamp": "2026-10-05T23:40:05",
+          "decision": "DENY",
+          "policy_reason": "사용자 'lee'는 리소스 'drive'에 대한 인가 권한이 없습니다.",
+          "severity": "HIGH",
+          "details": "사용자 'lee'의 권한 정책 위반 (사용자 'lee'는 리소스 'drive'에 대한 인가 권한이 없습니다.)"
+        }
+      ],
+      "stage3_exfiltration": [
+        {
+          "rule_id": "RULE-SAAS-ANOMALY-SERVICE",
+          "rule_name": "사용자 정상 사용 패턴 이탈 서비스 접근 탐지",
+          "event_id": "EVT-SAAS-1a24b02e",
+          "user_id": "lee",
+          "service": "drive",
+          "source_ip": "192.168.110.22",
+          "timestamp": "2026-10-05T23:40:05",
+          "baseline_services": [
+            "slack",
+            "jira"
+          ],
+          "severity": "HIGH",
+          "details": "사용자 'lee'의 평소 사용 패턴(['slack', 'jira'])에 없는 비인가 서비스 'drive' 접근 포착"
+        },
+        {
+          "rule_id": "RULE-IOC-MATCH",
+          "rule_name": "위협 인텔리전스(IoC) 악성 IP 매칭 탐지",
+          "event_id": "EVT-FW-a577aed1",
+          "user_id": "lee",
+          "matched_ip": "10.0.0.30",
+          "threat_type": "SUSPICIOUS_RECON_TARGET",
+          "threat_actor": "LATERAL_SCAN_TARGET",
+          "confidence": "HIGH",
+          "timestamp": "2026-10-05T09:04:10",
+          "severity": "CRITICAL",
+          "details": "알려진 위협 행위자 [LATERAL_SCAN_TARGET]의 악성 IP (10.0.0.30) 연루 이벤트 확인 (IOC 결과 탐지 변환)"
+        }
+      ],
+      "chain_summary": "3단계 다단계 공격 체이닝 포착 (Initial Access -> Lateral/Unauthorized -> Exfiltration)"
+    },
+    "risk_evaluation": {
+      "user_id": "lee",
+      "risk_score": 100,
+      "priority": "HIGH",
+      "is_chain_completed": true,
+      "chain_length": 3,
+      "factor_count": 8,
+      "factors": [
+        {
+          "rule_id": "RULE-LOGIN-BRUTEFORCE",
+          "rule_name": "다중 로그인 실패 기반 Brute-force 탐지",
+          "points": 35,
+          "details": "5분 윈도우 내 2회 로그인 실패 감지 (이후 로그인 성공 포착: 계정 탈취 위험)"
+        },
+        {
+          "rule_id": "RULE-UNAUTHORIZED-NETWORK-ACCESS",
+          "rule_name": "방화벽 정책 차단(DENY) 기반 비인가 포트 접근 탐지",
+          "points": 30,
+          "details": "인가되지 않은 포트 22 접근 시도 차단됨 (방화벽 정책 평가 결과 이상 변환)"
+        },
+        {
+          "rule_id": "RULE-UNAUTHORIZED-NETWORK-ACCESS",
+          "rule_name": "방화벽 정책 차단(DENY) 기반 비인가 포트 접근 탐지",
+          "points": 30,
+          "details": "인가되지 않은 포트 22 접근 시도 차단됨 (방화벽 정책 평가 결과 이상 변환)"
+        },
+        {
+          "rule_id": "RULE-UNAUTHORIZED-SAAS-ACCESS",
+          "rule_name": "RBAC 권한 정책 위반 SaaS 서비스 접근 탐지",
+          "points": 30,
+          "details": "사용자 'lee'의 권한 정책 위반 (사용자 'lee'는 리소스 'drive'에 대한 인가 권한이 없습니다.)"
+        },
+        {
+          "rule_id": "RULE-SAAS-ANOMALY-SERVICE",
+          "rule_name": "사용자 정상 사용 패턴 이탈 서비스 접근 탐지",
+          "points": 45,
+          "details": "사용자 'lee'의 평소 사용 패턴(['slack', 'jira'])에 없는 비인가 서비스 'drive' 접근 포착"
+        },
+        {
+          "rule_id": "RULE-SAAS-ANOMALY-OFFHOUR-EXFIL",
+          "rule_name": "업무 외 시간(심야) SaaS 데이터 다운로드 이상 탐지",
+          "points": 20,
+          "details": "평소 업무시간(9~19시) 외 심야(23:40:05)에 'drive' 대량/중요 다운로드 수행"
+        },
+        {
+          "rule_id": "RULE-IOC-MATCH",
+          "rule_name": "위협 인텔리전스(IoC) 악성 IP 매칭 탐지",
+          "points": 50,
+          "details": "알려진 위협 행위자 [LATERAL_SCAN_TARGET]의 악성 IP (10.0.0.30) 연루 이벤트 확인 (IOC 결과 탐지 변환)"
+        },
+        {
+          "rule_id": "CHAIN-CORRELATION-BONUS",
+          "rule_name": "3단계 다단계 공격 체인 완성 가산점",
+          "points": 50,
+          "details": "3단계 다단계 공격 체이닝 포착 (Initial Access -> Lateral/Unauthorized -> Exfiltration)"
+        }
+      ]
+    }
   },
-  {
-    "user_id": "user_eve",
-    "risk_score": 100,
-    "priority": "HIGH",
-    "is_chain_completed": false,
-    "detection_count": 7,
-    "contributing_factors": [
-      {
-        "rule_id": "RULE-UNAUTHORIZED-ACCESS",
-        "rule_name": "접근통제 정책 위반 비인가 리소스 접근 탐지",
-        "score_added": 30
-      },
-      {
-        "rule_id": "RULE-UNAUTHORIZED-ACCESS",
-        "rule_name": "접근통제 정책 위반 비인가 리소스 접근 탐지",
-        "score_added": 30
-      },
-      {
-        "rule_id": "RULE-SAAS-DATA-EXPORT",
-        "rule_name": "SaaS 대량 고객/보고서 데이터 추출 탐지",
-        "score_added": 45
-      },
-      {
-        "rule_id": "RULE-SAAS-MASS-DOWNLOAD",
-        "rule_name": "SaaS 대량 파일 다운로드(데이터 유출 의심) 탐지",
-        "score_added": 45
-      },
-      {
-        "rule_id": "RULE-IOC-MATCH",
-        "rule_name": "알려진 위협 인텔리전스(IoC) 악성 IP 통신 탐지",
-        "score_added": 50
-      },
-      {
-        "rule_id": "RULE-IOC-MATCH",
-        "rule_name": "알려진 위협 인텔리전스(IoC) 악성 IP 통신 탐지",
-        "score_added": 50
-      },
-      {
-        "rule_id": "RULE-IOC-MATCH",
-        "rule_name": "알려진 위협 인텔리전스(IoC) 악성 IP 통신 탐지",
-        "score_added": 50
-      }
-    ]
-  },
-  {
-    "user_id": "user_night",
-    "risk_score": 20,
-    "priority": "LOW",
-    "is_chain_completed": false,
-    "detection_count": 1,
-    "contributing_factors": [
+  "choi": {
+    "user_id": "choi",
+    "detection_count": 3,
+    "detections": [
       {
         "rule_id": "RULE-LOGIN-OFFHOUR",
-        "rule_name": "심야 업무 외 시간 비정상 로그인 탐지",
-        "score_added": 20
+        "rule_name": "업무 외 시간(심야) 비인가 로그인 탐지",
+        "event_id": "EVT-LOGIN-d91cca97",
+        "target_user": "choi",
+        "source_ip": "192.168.110.24",
+        "timestamp": "2026-10-05T23:48:02",
+        "access_hour": 23,
+        "offhour_range": "22:00 ~ 6:00",
+        "severity": "MEDIUM",
+        "details": "심야 업무 외 시간(23:48:02)에 로그인 성공 이벤트 포착 (개별 평가)"
+      },
+      {
+        "rule_id": "RULE-UNAUTHORIZED-NETWORK-ACCESS",
+        "rule_name": "방화벽 정책 차단(DENY) 기반 비인가 포트 접근 탐지",
+        "event_id": "EVT-FW-5faa0879",
+        "user_id": "choi",
+        "source_ip": "192.168.110.24",
+        "destination_ip": "10.0.0.60",
+        "target_port": 445,
+        "timestamp": "2026-10-05T22:55:09",
+        "decision": "DENY",
+        "policy_reason": "예외 승인 정책 적용: 야간 파일서버 점검 사전 승인",
+        "severity": "HIGH",
+        "details": "인가되지 않은 포트 445 접근 시도 차단됨 (방화벽 정책 평가 결과 이상 변환)"
+      },
+      {
+        "rule_id": "RULE-IOC-MATCH",
+        "rule_name": "위협 인텔리전스(IoC) 악성 IP 매칭 탐지",
+        "event_id": "EVT-FW-5faa0879",
+        "user_id": "choi",
+        "matched_ip": "10.0.0.60",
+        "threat_type": "INTERNAL_SMB_TARGET",
+        "threat_actor": "LATERAL_MOVEMENT_TARGET",
+        "confidence": "HIGH",
+        "timestamp": "2026-10-05T22:55:09",
+        "severity": "CRITICAL",
+        "details": "알려진 위협 행위자 [LATERAL_MOVEMENT_TARGET]의 악성 IP (10.0.0.60) 연루 이벤트 확인 (IOC 결과 탐지 변환)"
       }
-    ]
+    ],
+    "chain_analysis": {
+      "is_chain_completed": true,
+      "chain_length": 3,
+      "stage1_initial_access": [
+        {
+          "rule_id": "RULE-LOGIN-OFFHOUR",
+          "rule_name": "업무 외 시간(심야) 비인가 로그인 탐지",
+          "event_id": "EVT-LOGIN-d91cca97",
+          "target_user": "choi",
+          "source_ip": "192.168.110.24",
+          "timestamp": "2026-10-05T23:48:02",
+          "access_hour": 23,
+          "offhour_range": "22:00 ~ 6:00",
+          "severity": "MEDIUM",
+          "details": "심야 업무 외 시간(23:48:02)에 로그인 성공 이벤트 포착 (개별 평가)"
+        }
+      ],
+      "stage2_lateral_privilege": [
+        {
+          "rule_id": "RULE-UNAUTHORIZED-NETWORK-ACCESS",
+          "rule_name": "방화벽 정책 차단(DENY) 기반 비인가 포트 접근 탐지",
+          "event_id": "EVT-FW-5faa0879",
+          "user_id": "choi",
+          "source_ip": "192.168.110.24",
+          "destination_ip": "10.0.0.60",
+          "target_port": 445,
+          "timestamp": "2026-10-05T22:55:09",
+          "decision": "DENY",
+          "policy_reason": "예외 승인 정책 적용: 야간 파일서버 점검 사전 승인",
+          "severity": "HIGH",
+          "details": "인가되지 않은 포트 445 접근 시도 차단됨 (방화벽 정책 평가 결과 이상 변환)"
+        }
+      ],
+      "stage3_exfiltration": [
+        {
+          "rule_id": "RULE-IOC-MATCH",
+          "rule_name": "위협 인텔리전스(IoC) 악성 IP 매칭 탐지",
+          "event_id": "EVT-FW-5faa0879",
+          "user_id": "choi",
+          "matched_ip": "10.0.0.60",
+          "threat_type": "INTERNAL_SMB_TARGET",
+          "threat_actor": "LATERAL_MOVEMENT_TARGET",
+          "confidence": "HIGH",
+          "timestamp": "2026-10-05T22:55:09",
+          "severity": "CRITICAL",
+          "details": "알려진 위협 행위자 [LATERAL_MOVEMENT_TARGET]의 악성 IP (10.0.0.60) 연루 이벤트 확인 (IOC 결과 탐지 변환)"
+        }
+      ],
+      "chain_summary": "3단계 다단계 공격 체이닝 포착 (Initial Access -> Lateral/Unauthorized -> Exfiltration)"
+    },
+    "risk_evaluation": {
+      "user_id": "choi",
+      "risk_score": 100,
+      "priority": "HIGH",
+      "is_chain_completed": true,
+      "chain_length": 3,
+      "factor_count": 4,
+      "factors": [
+        {
+          "rule_id": "RULE-LOGIN-OFFHOUR",
+          "rule_name": "업무 외 시간(심야) 비인가 로그인 탐지",
+          "points": 20,
+          "details": "심야 업무 외 시간(23:48:02)에 로그인 성공 이벤트 포착 (개별 평가)"
+        },
+        {
+          "rule_id": "RULE-UNAUTHORIZED-NETWORK-ACCESS",
+          "rule_name": "방화벽 정책 차단(DENY) 기반 비인가 포트 접근 탐지",
+          "points": 30,
+          "details": "인가되지 않은 포트 445 접근 시도 차단됨 (방화벽 정책 평가 결과 이상 변환)"
+        },
+        {
+          "rule_id": "RULE-IOC-MATCH",
+          "rule_name": "위협 인텔리전스(IoC) 악성 IP 매칭 탐지",
+          "points": 50,
+          "details": "알려진 위협 행위자 [LATERAL_MOVEMENT_TARGET]의 악성 IP (10.0.0.60) 연루 이벤트 확인 (IOC 결과 탐지 변환)"
+        },
+        {
+          "rule_id": "CHAIN-CORRELATION-BONUS",
+          "rule_name": "3단계 다단계 공격 체인 완성 가산점",
+          "points": 50,
+          "details": "3단계 다단계 공격 체이닝 포착 (Initial Access -> Lateral/Unauthorized -> Exfiltration)"
+        }
+      ]
+    }
   },
-  {
-    "user_id": "user_spiker",
-    "risk_score": 0,
-    "priority": "LOW",
-    "is_chain_completed": false,
-    "detection_count": 0,
-    "contributing_factors": []
+  "UNKNOWN_ACTOR": {
+    "user_id": "UNKNOWN_ACTOR",
+    "detection_count": 1,
+    "detections": [
+      {
+        "rule_id": "RULE-TRAFFIC-SPIKE",
+        "rule_name": "시간대별 트래픽 다중 시점 비교 기반 급증(Spike) 탐지",
+        "time_bucket": "2026-10-05 09:00",
+        "source_ip": "192.168.110.22",
+        "all_source_ips": [
+          "192.168.110.22"
+        ],
+        "connection_count": 3,
+        "baseline_mean": 1.75,
+        "threshold": 2.74,
+        "severity": "HIGH",
+        "details": "시간대 [2026-10-05 09:00]에 평시 평균(1.8건)을 초과하는 3건의 트래픽 급증 탐지 (여러 시점 비교 평가)"
+      }
+    ],
+    "chain_analysis": {
+      "is_chain_completed": false,
+      "chain_length": 1,
+      "stage1_initial_access": [],
+      "stage2_lateral_privilege": [],
+      "stage3_exfiltration": [
+        {
+          "rule_id": "RULE-TRAFFIC-SPIKE",
+          "rule_name": "시간대별 트래픽 다중 시점 비교 기반 급증(Spike) 탐지",
+          "time_bucket": "2026-10-05 09:00",
+          "source_ip": "192.168.110.22",
+          "all_source_ips": [
+            "192.168.110.22"
+          ],
+          "connection_count": 3,
+          "baseline_mean": 1.75,
+          "threshold": 2.74,
+          "severity": "HIGH",
+          "details": "시간대 [2026-10-05 09:00]에 평시 평균(1.8건)을 초과하는 3건의 트래픽 급증 탐지 (여러 시점 비교 평가)"
+        }
+      ],
+      "chain_summary": "부분 이상 징후 단계 식별 (1/3 단계)"
+    },
+    "risk_evaluation": {
+      "user_id": "UNKNOWN_ACTOR",
+      "risk_score": 40,
+      "priority": "MEDIUM",
+      "is_chain_completed": false,
+      "chain_length": 1,
+      "factor_count": 1,
+      "factors": [
+        {
+          "rule_id": "RULE-TRAFFIC-SPIKE",
+          "rule_name": "시간대별 트래픽 다중 시점 비교 기반 급증(Spike) 탐지",
+          "points": 40,
+          "details": "시간대 [2026-10-05 09:00]에 평시 평균(1.8건)을 초과하는 3건의 트래픽 급증 탐지 (여러 시점 비교 평가)"
+        }
+      ]
+    }
   },
-  {
-    "user_id": "user_charlie",
-    "risk_score": 0,
-    "priority": "LOW",
-    "is_chain_completed": false,
-    "detection_count": 0,
-    "contributing_factors": []
-  },
-  {
-    "user_id": "user_alice",
-    "risk_score": 0,
-    "priority": "LOW",
-    "is_chain_completed": false,
-    "detection_count": 0,
-    "contributing_factors": []
-  },
-  {
-    "user_id": "user_bob",
-    "risk_score": 0,
-    "priority": "LOW",
-    "is_chain_completed": false,
-    "detection_count": 0,
-    "contributing_factors": []
-  },
-  {
-    "user_id": "user_frank",
-    "risk_score": 0,
-    "priority": "LOW",
-    "is_chain_completed": false,
-    "detection_count": 0,
-    "contributing_factors": []
-  },
-  {
-    "user_id": "user_regular1",
-    "risk_score": 0,
-    "priority": "LOW",
-    "is_chain_completed": false,
-    "detection_count": 0,
-    "contributing_factors": []
-  },
-  {
-    "user_id": "user_regular2",
-    "risk_score": 0,
-    "priority": "LOW",
-    "is_chain_completed": false,
-    "detection_count": 0,
-    "contributing_factors": []
+  "kim": {
+    "user_id": "kim",
+    "detection_count": 1,
+    "detections": [
+      {
+        "rule_id": "RULE-SAAS-ANOMALY-RAPID-DOWNLOAD",
+        "rule_name": "단시간 집중 연속 다운로드 이상 탐지",
+        "event_id": "EVT-SAAS-98018ac9",
+        "user_id": "kim",
+        "service": "drive",
+        "source_ip": "192.168.110.21",
+        "timestamp": "2026-10-05T09:36:01",
+        "interval_seconds": 17.0,
+        "severity": "HIGH",
+        "details": "이전 다운로드 후 불과 17초 만에 연속 다운로드 요청 포착 (기준선 이탈)"
+      }
+    ],
+    "chain_analysis": {
+      "is_chain_completed": false,
+      "chain_length": 1,
+      "stage1_initial_access": [],
+      "stage2_lateral_privilege": [],
+      "stage3_exfiltration": [
+        {
+          "rule_id": "RULE-SAAS-ANOMALY-RAPID-DOWNLOAD",
+          "rule_name": "단시간 집중 연속 다운로드 이상 탐지",
+          "event_id": "EVT-SAAS-98018ac9",
+          "user_id": "kim",
+          "service": "drive",
+          "source_ip": "192.168.110.21",
+          "timestamp": "2026-10-05T09:36:01",
+          "interval_seconds": 17.0,
+          "severity": "HIGH",
+          "details": "이전 다운로드 후 불과 17초 만에 연속 다운로드 요청 포착 (기준선 이탈)"
+        }
+      ],
+      "chain_summary": "부분 이상 징후 단계 식별 (1/3 단계)"
+    },
+    "risk_evaluation": {
+      "user_id": "kim",
+      "risk_score": 45,
+      "priority": "MEDIUM",
+      "is_chain_completed": false,
+      "chain_length": 1,
+      "factor_count": 1,
+      "factors": [
+        {
+          "rule_id": "RULE-SAAS-ANOMALY-RAPID-DOWNLOAD",
+          "rule_name": "단시간 집중 연속 다운로드 이상 탐지",
+          "points": 45,
+          "details": "이전 다운로드 후 불과 17초 만에 연속 다운로드 요청 포착 (기준선 이탈)"
+        }
+      ]
+    }
   }
-]
+}

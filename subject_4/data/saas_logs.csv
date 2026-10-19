@@ -1,8 +1,11 @@
-record_time,actor,app_name,operation,file_count,client_ip,result
-2026-10-19 09:02:00,user_alice,GoogleDrive,file_download,2,192.168.1.10,SUCCESS
-2026-10-19 09:11:00,user_bob,Slack,message_post,0,192.168.1.11,SUCCESS
-2026-10-19 09:20:00,user_eve,Salesforce,export_report,500,198.51.100.23,SUCCESS
-2026-10-19 09:22:30,user_eve,GoogleDrive,mass_file_download,150,198.51.100.23,SUCCESS
-2026-10-19 09:30:00,user_david,Confluence,admin_escalation,0,192.168.1.14,DENIED
-2026-10-19 09:40:00,user_frank,GitHub,repo_clone,1,192.168.1.15,SUCCESS
-2026-10-19 09:50:00,,Jira,view_issue,0,192.168.1.16,SUCCESS
+timestamp,user,service,action,src_ip,result
+2026-10-05 09:05:11,kim,drive,LOGIN,192.168.110.21,SUCCESS
+2026-10-05 09:07:32,lee,slack,LOGIN,192.168.110.22,SUCCESS
+2026-10-05 09:15:03,park,drive,UPLOAD,192.168.110.23,SUCCESS
+2026-10-05 09:20:14,choi,mail,LOGIN,192.168.110.24,SUCCESS
+2026-10-05 09:35:44,kim,drive,DOWNLOAD,192.168.110.21,SUCCESS
+2026-10-05 09:36:01,kim,drive,DOWNLOAD,192.168.110.21,SUCCESS
+2026/10/05 10:02:41,lee,jira,LOGIN,192.168.110.22,SUCCESS
+not-a-time,park,drive,DOWNLOAD,192.168.110.23,SUCCESS
+2026-10-05 10:15:22,,drive,DOWNLOAD,192.168.110.25,SUCCESS
+2026-10-05 23:40:05,lee,drive,DOWNLOAD,192.168.110.22,SUCCESS

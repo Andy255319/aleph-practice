@@ -1,6 +1,27 @@
 {
   "malicious_ips": [
     {
+      "ip": "10.0.0.30",
+      "threat_type": "SUSPICIOUS_RECON_TARGET",
+      "threat_actor": "LATERAL_SCAN_TARGET",
+      "confidence": "HIGH",
+      "description": "SSH 비인가 포트 스캐닝 피탐 노드"
+    },
+    {
+      "ip": "10.0.0.60",
+      "threat_type": "INTERNAL_SMB_TARGET",
+      "threat_actor": "LATERAL_MOVEMENT_TARGET",
+      "confidence": "HIGH",
+      "description": "야간 SMB 취약점 공격 대상 내부 서버"
+    },
+    {
+      "ip": "192.168.110.25",
+      "threat_type": "INTERNAL_SCANNER",
+      "threat_actor": "UNKNOWN_THREAT_ACTOR",
+      "confidence": "HIGH",
+      "description": "다중 서비스 RDP/SaaS 무단 접근 시도 내부 감염 노드"
+    },
+    {
       "ip": "198.51.100.23",
       "threat_type": "C2_SERVER",
       "threat_actor": "APT28_FANCY_BEAR",

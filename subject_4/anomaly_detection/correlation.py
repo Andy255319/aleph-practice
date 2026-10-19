@@ -1,5 +1,7 @@
 """
 Day 3: 다단계 공격 상관분석 (Correlation Engine) 및 통합 위험점수(Risk Score) 산출 모듈
+(Day 4 슬라이드 표 명세 반영:
+ - 상관분석 함수: 여러 이벤트와 시간 범위 필요 -> 이벤트 간 관계를 평가할 데이터 필요)
 """
 import os
 import json
@@ -38,13 +40,14 @@ def group_by_user(events: List[Dict[str, Any]]) -> Dict[str, List[Dict[str, Any]
 def check_chain(
     user_events: List[Dict[str, Any]],
     user_detections: List[Dict[str, Any]],
-    max_window_hours: int = 2
+    max_window_hours: int = 24
 ) -> Dict[str, Any]:
     """
     3단계 침해사고 킬체인(Kill Chain) 패턴 검증:
+    [평가 시 고려할 점]: 여러 이벤트 간의 선후 관계와 인과관계를 평가할 데이터 필요.
     - 1단계: 비정상 로그인 (무차별 대입, 실패 후 성공, 심야 접속)
-    - 2단계: 내부 탐색 및 비인가 리소스 접근 (RBAC 위반, 권한 상승 시도)
-    - 3단계: 데이터 대량 유출 (SaaS 대량 다운로드, IoC C2 통신, 트래픽 급증)
+    - 2단계: 내부 탐색 및 비인가 리소스 접근 (포트 스캔, 방화벽 차단, RBAC 위반)
+    - 3단계: 데이터 유출 및 외부 통신 (SaaS 심야/급속 다운로드, 트래픽 급증, IoC IP 매칭)
     """
     stage1_matched = []
     stage2_matched = []
@@ -56,7 +59,7 @@ def check_chain(
             stage1_matched.append(d)
         elif "UNAUTHORIZED" in rid or "PRIV-ESCALATION" in rid:
             stage2_matched.append(d)
-        elif "MASS-DOWNLOAD" in rid or "DATA-EXPORT" in rid or "IOC-MATCH" in rid or "TRAFFIC-SPIKE" in rid:
+        elif "ANOMALY" in rid or "IOC-MATCH" in rid or "TRAFFIC-SPIKE" in rid or "DOWNLOAD" in rid:
             stage3_matched.append(d)
 
     is_chain_completed = bool(stage1_matched and stage2_matched and stage3_matched)
@@ -67,8 +70,37 @@ def check_chain(
         "stage1_initial_access": stage1_matched,
         "stage2_lateral_privilege": stage2_matched,
         "stage3_exfiltration": stage3_matched,
-        "chain_summary": "3단계 다단계 공격 체이닝 포착 (Initial Access -> Priv/Access -> Exfiltration)" if is_chain_completed else "단일 또는 부분 이상 징후"
+        "chain_summary": "3단계 다단계 공격 체이닝 포착 (Initial Access -> Lateral/Unauthorized -> Exfiltration)" if is_chain_completed else f"부분 이상 징후 단계 식별 ({len([s for s in [stage1_matched, stage2_matched, stage3_matched] if s])}/3 단계)"
     }
+
+def correlate_events(
+    events: List[Dict[str, Any]],
+    detections: List[Dict[str, Any]],
+    time_window_hours: int = 24
+) -> Dict[str, Any]:
+    """
+    [상관분석 함수 핵심 구현]:
+    여러 이벤트와 시간 범위를 입력받아 이벤트 간의 관계(사용자/IP/시간 순서)를 종합 평가.
+    """
+    # 사용자별로 이상탐지 결과 그룹화
+    user_dets: Dict[str, List[Dict[str, Any]]] = {}
+    for d in detections:
+        u = d.get("target_user") or d.get("user_id") or "UNKNOWN_ACTOR"
+        user_dets.setdefault(u, []).append(d)
+
+    correlated_results = {}
+    for user_id, dets in user_dets.items():
+        chain = check_chain([], dets, max_window_hours=time_window_hours)
+        risk = calculate_risk_score(user_id, dets, chain)
+        correlated_results[user_id] = {
+            "user_id": user_id,
+            "detection_count": len(dets),
+            "detections": dets,
+            "chain_analysis": chain,
+            "risk_evaluation": risk
+        }
+
+    return correlated_results
 
 def calculate_risk_score(
     user_id: str,
@@ -92,94 +124,66 @@ def calculate_risk_score(
             pts = weights.get("weight_offhour_login", 20)
         elif "TRAFFIC" in rid:
             pts = weights.get("weight_traffic_spike", 40)
-        elif "MASS-DOWNLOAD" in rid or "DATA-EXPORT" in rid:
+        elif "ANOMALY" in rid or "MASS-DOWNLOAD" in rid or "DATA-EXPORT" in rid:
             pts = weights.get("weight_saas_anomaly", 45)
         elif "IOC-MATCH" in rid:
             pts = weights.get("weight_ioc_match", 50)
         elif "UNAUTHORIZED" in rid or "PRIV-ESCALATION" in rid:
             pts = weights.get("weight_unauthorized_access", 30)
         else:
-            pts = 15
+            pts = 20
 
         base_score += pts
         contributing_factors.append({
             "rule_id": rid,
-            "rule_name": d.get("rule_name"),
-            "score_added": pts
+            "rule_name": d.get("rule_name", "이상 징후"),
+            "points": pts,
+            "details": d.get("details", "")
         })
 
+    # 킬체인 상관분석 완성 시 가산점
     chain_bonus = 0
     if chain_result and chain_result.get("is_chain_completed"):
         chain_bonus = weights.get("chain_correlation_bonus", 50)
+        base_score += chain_bonus
         contributing_factors.append({
-            "rule_id": "CORRELATION-CHAIN-BONUS",
-            "rule_name": "3단계 침해사고 킬체인 완성 가산점",
-            "score_added": chain_bonus
+            "rule_id": "CHAIN-CORRELATION-BONUS",
+            "rule_name": "3단계 다단계 공격 체인 완성 가산점",
+            "points": chain_bonus,
+            "details": chain_result.get("chain_summary", "")
         })
 
-    total_score = min(100, base_score + chain_bonus)
-    priority = "HIGH" if total_score >= weights.get("high_priority_cutoff", 70) else ("MEDIUM" if total_score >= 40 else "LOW")
+    # 100점 정규화 상한
+    final_score = min(100, base_score)
+
+    cutoff = weights.get("high_priority_cutoff", 70)
+    if final_score >= cutoff:
+        priority = "HIGH"
+    elif final_score >= 40:
+        priority = "MEDIUM"
+    else:
+        priority = "LOW"
 
     return {
         "user_id": user_id,
-        "risk_score": total_score,
+        "risk_score": final_score,
         "priority": priority,
         "is_chain_completed": chain_result.get("is_chain_completed", False) if chain_result else False,
-        "detection_count": len(user_detections),
-        "contributing_factors": contributing_factors
+        "chain_length": chain_result.get("chain_length", 0) if chain_result else 0,
+        "factor_count": len(contributing_factors),
+        "factors": contributing_factors
     }
 
-def run_day03_evaluation(events: List[Dict[str, Any]], all_detections: List[Dict[str, Any]]) -> str:
-    """
-    테스트 이벤트 10건(정상 5건, 이상 5건)에 대해 위험점수를 종합 계산하고
-    anomaly_detection/day03_risk_scores.json으로 저장
-    """
+def run_day03_evaluation(
+    events: List[Dict[str, Any]],
+    all_detections: List[Dict[str, Any]]
+) -> str:
+    """Day 3 결과를 day03_risk_scores.json으로 저장"""
     base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    out_path = os.path.join(base_dir, "anomaly_detection", "day03_risk_scores.json")
+    corr_results = correlate_events(events, all_detections)
 
-    # 10개 대표 테스트 사용자/이벤트 대상
-    target_users = [
-        # 이상 5건
-        "user_david",    # Brute-force + 비인가 권한 상승 시도 (다단계)
-        "user_eve",      # IoC 악성 IP 통신 + SaaS 대량 다운로드 (다단계)
-        "user_night",    # 심야 업무외 시간 비정상 로그인
-        "user_spiker",   # 통계적 트래픽 급증 유발자
-        "user_charlie",  # 비인가 접근 시도 (정책 거부)
-        # 정상 5건
-        "user_alice",    # 정상 로그인 + 드라이브 다운로드(소량)
-        "user_bob",      # 정상 영업 슬랙 활동
-        "user_frank",    # 정상 개발자 깃허브 클론
-        "user_regular1", # 일상 업무 사용자 1
-        "user_regular2"  # 일상 업무 사용자 2
-    ]
+    out_file = os.path.join(base_dir, "anomaly_detection", "day03_risk_scores.json")
+    with open(out_file, "w", encoding="utf-8") as f:
+        json.dump(corr_results, f, indent=2, ensure_ascii=False)
 
-    # 사용자별 탐지 목록 매핑
-    user_det_map: Dict[str, List[Dict[str, Any]]] = {}
-    for d in all_detections:
-        u = d.get("user_id") or d.get("target_user")
-        if u:
-            user_det_map.setdefault(u, []).append(d)
-
-    # 3단계 체인 강제 시뮬레이션용 데이터 보강 (user_david 및 user_eve)
-    user_david_dets = user_det_map.get("user_david", [])
-    # david: stage1(bruteforce) + stage2(priv_escalation) + stage3(exfil)
-    david_chain = check_chain(
-        user_events=[],
-        user_detections=user_david_dets + [
-            {"rule_id": "RULE-SAAS-MASS-DOWNLOAD", "rule_name": "SaaS 대량 다운로드"}
-        ]
-    )
-
-    results = []
-    for u in target_users:
-        u_dets = user_det_map.get(u, [])
-        is_chain = (u in ["user_david", "user_eve"])
-        chain_info = david_chain if u == "user_david" else check_chain([], u_dets)
-        
-        score_res = calculate_risk_score(u, u_dets, chain_info)
-        results.append(score_res)
-
-    with open(out_path, "w", encoding="utf-8") as f:
-        json.dump(results, f, indent=2, ensure_ascii=False)
-
-    return out_path
+    return out_file

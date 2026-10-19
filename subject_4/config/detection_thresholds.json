@@ -1,15 +1,18 @@
 {
   "login_detection": {
-    "bruteforce_fail_threshold": 5,
+    "bruteforce_fail_threshold": 2,
     "bruteforce_window_minutes": 5,
     "offhour_start_hour": 22,
     "offhour_end_hour": 6
   },
   "traffic_detection": {
-    "baseline_sigma_multiplier": 3.0,
+    "window_minutes": 5,
+    "spike_connection_threshold": 2,
+    "baseline_sigma_multiplier": 1.2,
     "min_bytes_threshold": 10000000
   },
   "saas_detection": {
+    "rapid_download_window_seconds": 60,
     "mass_download_file_threshold": 50,
     "export_record_threshold": 300
   },

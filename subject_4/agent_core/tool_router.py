@@ -1,6 +1,7 @@
 """
 Agent Core Tool Router Module
 AI 에이전트 및 LLM 도구 호출(Tool Calling) 연동 라우터
+(Day 4 슬라이드 표 명세 6대 탐지 함수 및 상관분석 함수 완벽 등록)
 """
 from typing import Dict, Any, Callable, Optional
 
@@ -39,32 +40,54 @@ def register_anomaly_tools():
     from anomaly_detection.login_detection import detect_bruteforce, detect_offhour_login
     from anomaly_detection.traffic_detection import detect_traffic_spike
     from anomaly_detection.advanced_detection import match_ioc, detect_unauthorized_access, detect_saas_anomaly
-    from anomaly_detection.correlation import calculate_risk_score
+    from anomaly_detection.correlation import correlate_events, calculate_risk_score
 
+    # 1. detect_bruteforce()
     global_router.register_tool(
         name="detect_bruteforce",
         func=detect_bruteforce,
-        description="다중 로그인 실패를 분석하여 무차별 대입 공격을 식별합니다."
+        description="사용자별 로그인 로그와 시간 범위를 분석하여 무차별 대입 공격 및 계정 탈취를 탐지합니다."
     )
+    # 2. detect_offhour_login()
+    global_router.register_tool(
+        name="detect_offhour_login",
+        func=detect_offhour_login,
+        description="로그인 로그 개별 이벤트를 평가하여 업무 외 시간(심야/새벽) 비인가 접속을 탐지합니다."
+    )
+    # 3. detect_traffic_spike()
     global_router.register_tool(
         name="detect_traffic_spike",
         func=detect_traffic_spike,
-        description="통계적 베이스라인을 기반으로 비정상 네트워크 트래픽 급증을 탐지합니다."
+        description="시간대별 여러 시점의 트래픽 데이터를 통계 베이스라인과 비교하여 급증(Spike)을 탐지합니다."
     )
+    # 4. detect_unauthorized_access()
     global_router.register_tool(
-        name="match_ioc",
-        func=match_ioc,
-        description="최신 위협 인텔리전스(IoC) 데이터베이스와 인입 IP를 대조합니다."
+        name="detect_unauthorized_access",
+        func=detect_unauthorized_access,
+        description="접근 로그와 권한 정책(RBAC/방화벽)을 대조하여 비인가 리소스 접근 이상 여부로 변환합니다."
     )
+    # 5. detect_saas_anomaly()
     global_router.register_tool(
         name="detect_saas_anomaly",
         func=detect_saas_anomaly,
-        description="SaaS 클라우드 내 대량 파일 다운로드 및 권한 상승 이상을 탐지합니다."
+        description="사용자별 SaaS 사용 기록과 정상 패턴 기준선을 비교하여 이상 행위 및 심야 유출을 탐지합니다."
+    )
+    # 6. match_ioc()
+    global_router.register_tool(
+        name="match_ioc",
+        func=match_ioc,
+        description="IP·도메인을 위협 인텔리전스(IOC) 목록과 매칭하여 탐지 결과로 변환합니다."
+    )
+    # 7. correlate_events() (상관분석 함수)
+    global_router.register_tool(
+        name="correlate_events",
+        func=correlate_events,
+        description="여러 이벤트와 시간 범위를 종합하여 이벤트 간 관계를 평가하고 다단계 킬체인을 상관분석합니다."
     )
     global_router.register_tool(
         name="calculate_risk_score",
         func=calculate_risk_score,
-        description="사용자별 탐지 지표와 상관분석 킬체인을 종합하여 위험점수를 산출합니다."
+        description="탐지된 복합 이상 징후 가중치와 킬체인 완성 여부를 종합하여 통합 위험점수를 산출합니다."
     )
 
 # 패키지 로드 시 자동 등록
