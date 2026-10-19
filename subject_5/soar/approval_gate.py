@@ -78,11 +78,10 @@ class ApprovalGate:
         # 승인 필요 작업인데 승인자(approver)가 없는 경우 승인 대기로 분기
         if eval_result["requires_approval"] and not approver:
             log_action(
-                action_type=action_type,
+                action=action_type,
                 target=target,
-                status="APPROVAL_PENDING",
-                details=f"위험등급[{eval_result['risk_level'].upper()}] - 관리자 승인 대기 등록됨. (VIP 여부: {eval_result['is_vip']})",
-                operator=operator
+                result="APPROVAL_PENDING",
+                reason=f"위험등급[{eval_result['risk_level'].upper()}] - 관리자 승인 대기 등록됨. (VIP 여부: {eval_result['is_vip']})"
             )
             return {
                 "success": False,

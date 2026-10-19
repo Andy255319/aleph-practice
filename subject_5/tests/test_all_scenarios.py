@@ -150,5 +150,26 @@ class TestSOARSlideScenarios(unittest.TestCase):
         r7 = check_and_escalate(new_ticket, elapsed_minutes=5, responded=False, rules=custom_rules)
         self.assertTrue(r7["escalated"])
 
+    def test_day4_approval_gate_and_fp(self):
+        """DAY 4: 공통 승인 게이트(ApprovalGate) 분기 및 오탐 복구(handle_false_positive) 검증"""
+        # 1. Low 위험도 조치 (terminate_session) -> 즉시 실행
+        r_low = execute_action("terminate_session", "test_user_02", {"reason": "세션 정리"})
+        self.assertTrue(r_low["success"])
+        self.assertEqual(r_low["status"], "EXECUTED")
+
+        # 2. High/Critical 조치 (lock_account) 승인자 없음 -> APPROVAL_PENDING 반환 (log_action 정상 기록)
+        r_pend = execute_action("lock_account", "test_user_02", {"reason": "의심 계정"})
+        self.assertFalse(r_pend["success"])
+        self.assertEqual(r_pend["status"], "APPROVAL_PENDING")
+
+        # 3. High/Critical 조치 (lock_account) 승인자 있음 -> EXECUTED 실행
+        r_appr = execute_action("lock_account", "test_user_02", {"reason": "의심 계정"}, approver="sec_manager")
+        self.assertTrue(r_appr["success"])
+        self.assertEqual(r_appr["status"], "EXECUTED")
+
+        # 4. 오탐 복구 실행
+        fp = handle_false_positive("INC-TEST-FP", "test_user_02", "192.0.2.1", "정상 업무 확인")
+        self.assertEqual(fp["status"], "FALSE_POSITIVE_RESOLVED")
+
 if __name__ == "__main__":
     unittest.main()

@@ -37,18 +37,32 @@ def is_vip_account(username: str) -> bool:
     except Exception:
         return False
 
-def log_action(action: str, target: str, result: str, reason: str) -> Dict[str, Any]:
+def log_action(
+    action: str = "",
+    target: str = "",
+    result: str = "",
+    reason: str = "",
+    **kwargs
+) -> Dict[str, Any]:
     """
     모든 조치 함수 호출 시 성공·실패·건너뜀·승인 필요 결과를 JSON 파일에 누적 기록
     - 시간(timestamp), 조치 유형(action), 대상(target), 결과(result), 사유(reason)
+    - action_type, status, details, operator 등 키워드 인자 호환 지원
     """
+    act = action or kwargs.get("action_type", "")
+    tgt = target
+    res = result or kwargs.get("status", "")
+    rsn = reason or kwargs.get("details", "")
+
     entry = {
         "timestamp": datetime.now().isoformat(),
-        "action": action,
-        "target": target,
-        "result": result,
-        "reason": reason
+        "action": act,
+        "target": tgt,
+        "result": res,
+        "reason": rsn
     }
+    if "operator" in kwargs:
+        entry["operator"] = kwargs["operator"]
 
     log_path = _get_log_path()
     logs = []
